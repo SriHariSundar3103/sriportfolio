@@ -1,0 +1,1912 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Sri Hari Sundar R — AI Developer, ML Engineer, and Intelligent Systems Builder. Engineering intelligence for real-world impact. IIT Bombay AI Certified." />
+  <meta name="keywords"
+    content="Sri Hari Sundar, AI Developer, ML Engineer, CropScout Pro, WildGuard AI, Machine Learning, IIT Bombay, Portfolio" />
+  <meta property="og:title" content="Sri Hari Sundar R | AI Developer Portfolio" />
+  <meta property="og:description" content="Engineering Intelligence for Real-World Impact." />
+  <title>Sri Hari Sundar R | AI Developer · ML Engineer · IIT Bombay Certified</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link rel="stylesheet" href="features.css" />
+  <link rel="stylesheet" href="premium.css" />
+  <link rel="stylesheet" href="ui-controls.css" />
+  <link rel="stylesheet" href="elite.css" />
+</head>
+
+<body>
+
+  <!-- ═══════ FLOATING ACTION CLUSTER (bottom-right, no overlap) ═════ -->
+
+  <!-- Robot FAB — opens chatbot -->
+  <button id="robotFab" class="fab-cluster-btn fab-robot" title="Chat with Sri Hari AI" aria-label="Open AI Chat">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+      <rect x="5" y="8" width="16" height="12" rx="3" stroke="currentColor" stroke-width="1.6" />
+      <rect x="9" y="2" width="8" height="6" rx="2" stroke="currentColor" stroke-width="1.4" />
+      <line x1="13" y1="8" x2="13" y2="6" stroke="currentColor" stroke-width="1.4" />
+      <circle cx="9.5" cy="14" r="1.8" fill="currentColor" />
+      <circle cx="16.5" cy="14" r="1.8" fill="currentColor" />
+      <path d="M9 18.5h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+      <line x1="2" y1="13" x2="5" y2="13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+      <line x1="21" y1="13" x2="24" y2="13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+    </svg>
+    <span class="fab-robot-pulse"></span>
+  </button>
+
+  <!-- Settings FAB — theme toggle -->
+  <button id="settingsFab" class="fab-cluster-btn fab-settings" title="Toggle Theme" aria-label="Toggle Theme" onclick="toggleTheme()">
+    <svg id="themeIcon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <!-- Sun icon (shown in dark mode - click to switch to light) -->
+      <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.4"/>
+      <path d="M10 2v2M10 16v2M2 10h2M16 10h2M3.2 3.2l1.4 1.4M15.4 15.4l1.4 1.4M3.2 16.8l1.4-1.4M15.4 4.6l1.4-1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- Navigate FAB — section categories -->
+  <button id="navigateFab" class="fab-cluster-btn fab-navigate" title="Browse Sections" aria-label="Section Navigator">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.4" />
+      <path d="M10 4v2M10 14v2M4 10h2M14 10h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+      <circle cx="10" cy="10" r="2" fill="currentColor" />
+    </svg>
+  </button>
+
+  <!-- Settings Panel -->
+  <div id="settingsPanel" class="settings-panel" aria-hidden="true">
+    <div class="sp-header">
+      <span class="sp-title">Settings</span>
+      <button class="sp-close"
+        onclick="document.getElementById('settingsPanel').classList.remove('open');document.getElementById('settingsPanel').setAttribute('aria-hidden','true')">✕</button>
+    </div>
+    <div class="sp-section">
+      <div class="sp-label">Theme</div>
+      <div class="sp-theme-row">
+        <button class="sp-theme-btn active" id="spDark" onclick="setTheme('dark')">
+          <span class="sp-theme-swatch dark-swatch"></span>Dark
+        </button>
+        <button class="sp-theme-btn" id="spLight" onclick="setTheme('light')">
+          <span class="sp-theme-swatch light-swatch"></span>Light
+        </button>
+      </div>
+    </div>
+    <div class="sp-section">
+      <div class="sp-label">Quick Links</div>
+      <a href="mailto:sriharisundar.ai@gmail.com" class="sp-link">✉ Email Me</a>
+      <a href="https://github.com/sriharisundar-ai" target="_blank" class="sp-link">⌥ GitHub</a>
+      <a href="https://linkedin.com/in/sriharisundar" target="_blank" class="sp-link">in LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- Features Navigator Panel -->
+  <div id="featureNav" class="feature-nav-panel" aria-hidden="true">
+    <div class="fn-header">
+      <span class="fn-title">Sections</span>
+      <button class="fn-close" onclick="closeFeatureNav()">✕</button>
+    </div>
+    <div class="fn-body">
+      <div class="fn-category">
+        <div class="fn-cat-label">👤 Identity</div>
+        <button class="fn-item" onclick="navTo('developer-snapshot')">Developer Snapshot</button>
+        <button class="fn-item" onclick="navTo('why-hire-me')">Why Hire Me</button>
+      </div>
+      <div class="fn-category">
+        <div class="fn-cat-label">🧠 Skills</div>
+        <button class="fn-item" onclick="navTo('skill-matrix')">Skill Matrix</button>
+        <button class="fn-item" onclick="navTo('tech-radar')">Tech Radar</button>
+        <button class="fn-item" onclick="navTo('tech')">Full Tech Stack</button>
+      </div>
+      <div class="fn-category">
+        <div class="fn-cat-label">🚀 Projects</div>
+        <button class="fn-item" onclick="navTo('projects')">AI Systems</button>
+        <button class="fn-item" onclick="navTo('about')">Mindset & Values</button>
+      </div>
+      <div class="fn-category">
+        <div class="fn-cat-label">📊 Activity</div>
+        <button class="fn-item" onclick="navTo('github-activity')">GitHub Activity</button>
+        <button class="fn-item" onclick="navTo('achievements')">Timeline</button>
+        <button class="fn-item" onclick="navTo('competitive')">Competitive Arena</button>
+      </div>
+      <div class="fn-category">
+        <div class="fn-cat-label">🔬 Research</div>
+        <button class="fn-item" onclick="navTo('research')">Research Feed</button>
+        <button class="fn-item" onclick="navTo('terminal')">Dev Terminal</button>
+      </div>
+      <div class="fn-category">
+        <div class="fn-cat-label">🤖 AI & Contact</div>
+        <button class="fn-item" onclick="navTo('ai-lab')">AI Chat Lab</button>
+        <button class="fn-item" onclick="navTo('lets-build')">Let's Build</button>
+        <button class="fn-item" onclick="navTo('impact')">Impact Numbers</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="constellationCanvas"></canvas>
+
+
+
+
+
+  <!-- ── LOADING SCREEN ── -->
+  <div id="loader" class="loader">
+    <div class="loader-content">
+      <div class="loader-orb"></div>
+      <div class="loader-text">
+        <span class="loader-label">INITIALIZING</span>
+        <div class="loader-bar">
+          <div class="loader-bar-fill" id="loaderBar"></div>
+        </div>
+        <span class="loader-percent" id="loaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NAVIGATION ── -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="nav-logo-svg">
+        <rect width="32" height="32" rx="8" fill="url(#navLogoGrad)" />
+        <path d="M10 22L16 10L22 22" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M12.5 18h7" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+        <defs>
+          <linearGradient id="navLogoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#6d28d9" />
+            <stop offset="1" stop-color="#3b82f6" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="nav-brand-name">Sri Hari Sundar</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" class="nav-link" data-label="01">About</a></li>
+      <li><a href="#projects" class="nav-link" data-label="02">Projects</a></li>
+      <li><a href="#ai-lab" class="nav-link" data-label="04">Assistant</a></li>
+      <li><a href="#tech" class="nav-link" data-label="05">Skills</a></li>
+      <li><a href="#impact" class="nav-link" data-label="06">Impact</a></li>
+    </ul>
+    <button class="nav-cta" id="navCta" onclick="document.getElementById('ai-lab').scrollIntoView({behavior:'smooth'})">
+      <span class="cta-pulse"></span>Chat with AI
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+
+  <!-- ── HERO SECTION ── -->
+  <section id="hero" class="hero">
+    <canvas id="neuralCanvas" class="neural-canvas"></canvas>
+    <div class="hero-grid"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="hero-glow hero-glow-3"></div>
+
+    <div class="hero-content" id="heroContent">
+      <div class="hero-badge float-anim">
+        <span class="badge-dot"></span>
+        <span>Available for Research Collaboration</span>
+      </div>
+
+      <h1 class="hero-name">
+        <span class="name-line" id="nameLine1">Sri Hari</span>
+        <span class="name-line gradient-text" id="nameLine2">Sundar R</span>
+      </h1>
+
+      <div class="hero-roles">
+        <span class="role-prefix">I build </span>
+        <span class="typed-text" id="typedText"></span>
+        <span class="typed-cursor">|</span>
+      </div>
+
+      <p class="hero-tagline" id="heroTagline">
+        "Engineering Intelligence for Real-World Impact."
+      </p>
+
+      <div class="hero-buttons" id="heroButtons">
+        <button class="btn-primary magnetic" id="exploreBtn"
+          onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+          <span class="btn-bg"></span>
+          <span class="btn-text">Explore My Work</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button class="btn-secondary magnetic" id="aiBtn"
+          onclick="document.getElementById('ai-lab').scrollIntoView({behavior:'smooth'})">
+          <span class="btn-ring"></span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="3" fill="currentColor" />
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1" />
+          </svg>
+          <span>Talk to My AI</span>
+        </button>
+      </div>
+
+      <div class="hero-scroll-hint" id="scrollHint">
+        <div class="scroll-line"></div>
+        <span>Scroll to explore</span>
+      </div>
+    </div>
+
+    <!-- Floating AI Nodes -->
+    <div class="ai-node node-1 float-anim-slow" style="--delay:0s">
+      <div class="node-inner">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="4" fill="#60a5fa" />
+          <circle cx="10" cy="10" r="9" stroke="#60a5fa" stroke-width="0.5" opacity="0.4" />
+        </svg>
+      </div>
+      <span class="node-label">Neural Engine</span>
+    </div>
+    <div class="ai-node node-2 float-anim-slow" style="--delay:0.5s">
+      <div class="node-inner">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <polygon points="10,2 18,16 2,16" stroke="#a78bfa" stroke-width="1" fill="none" />
+          <circle cx="10" cy="11" r="2" fill="#a78bfa" />
+        </svg>
+      </div>
+      <span class="node-label">LLM Stack</span>
+    </div>
+    <div class="ai-node node-3 float-anim-slow" style="--delay:1s">
+      <div class="node-inner">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <rect x="3" y="3" width="14" height="14" rx="3" stroke="#34d399" stroke-width="1" fill="none" />
+          <path d="M7 10l2 2 4-4" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </div>
+      <span class="node-label">CV System</span>
+    </div>
+    <div class="ai-node node-4 float-anim-slow" style="--delay:1.5s">
+      <div class="node-inner">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2v16M2 10h16M5 5l10 10M15 5L5 15" stroke="#f59e0b" stroke-width="0.8" opacity="0.7" />
+          <circle cx="10" cy="10" r="3" fill="#f59e0b" opacity="0.8" />
+        </svg>
+      </div>
+      <span class="node-label">Data Science</span>
+    </div>
+  </section>
+
+  <!-- ── ABOUT SECTION ── -->
+  <section id="about" class="section about-section">
+    <div class="section-bg-grid"></div>
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2 class="section-title">The <span class="gradient-text">Mindset</span></h2>
+        <p class="section-subtitle">Not just a student. A systems thinker who builds AI that matters.</p>
+      </div>
+
+      <div class="about-grid" data-reveal>
+        <div class="mindset-cards">
+          <div class="mindset-card float-anim" style="--delay:0s">
+            <div class="mindset-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-4.14zm5 0a2.5 2.5 0 0 0-2.5 2.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.44-4.14z"
+                  stroke="#60a5fa" stroke-width="1.5" />
+              </svg>
+            </div>
+            <h3>Analytical</h3>
+            <p>Decomposes complex AI challenges into structured, solvable systems with first-principles thinking.</p>
+          </div>
+          <div class="mindset-card float-anim" style="--delay:0.2s">
+            <div class="mindset-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="3" stroke="#a78bfa" stroke-width="1.5" />
+                <path
+                  d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"
+                  stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>Systems Thinker</h3>
+            <p>Views every problem as an interconnected system — from data pipelines to model deployment at scale.</p>
+          </div>
+          <div class="mindset-card float-anim" style="--delay:0.4s">
+            <div class="mindset-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#34d399" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3>Solution-Oriented</h3>
+            <p>Translates research insights into real-world AI products and deployable intelligent systems.</p>
+          </div>
+          <div class="mindset-card float-anim" style="--delay:0.6s">
+            <div class="mindset-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3>Continuous Learner</h3>
+            <p>550+ AI tools explored. Daily research practice. Stays ahead of the curve in a fast-moving field.</p>
+          </div>
+        </div>
+
+        <div class="about-right" data-reveal>
+          <div class="about-profile-card">
+            <div class="profile-glow"></div>
+            <div class="profile-avatar">
+              <div class="avatar-ring ring-1"></div>
+              <div class="avatar-ring ring-2"></div>
+              <div class="avatar-ring ring-3"></div>
+              <div class="avatar-initials">SHS</div>
+            </div>
+            <div class="profile-info">
+              <h3>Sri Hari Sundar R</h3>
+              <p>AI Developer · ML Engineer</p>
+              <div class="profile-tags">
+                <span class="ptag">🎓 B.E Computer Science</span>
+                <span class="ptag">🏛 GCE Salem</span>
+                <span class="ptag">📊 CGPA: 7.5</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certification Timeline -->
+          <div class="timeline">
+            <h4 class="timeline-title">Certification Timeline</h4>
+            <div class="timeline-item" data-reveal>
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <span class="tl-badge iit">IIT Bombay</span>
+                <h5>AI Developing Program</h5>
+                <p>Advanced AI curriculum from India's premier technical institute</p>
+              </div>
+            </div>
+            <div class="timeline-item" data-reveal>
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <span class="tl-badge ibm">IBM</span>
+                <h5>AI & ML Development</h5>
+                <p>Enterprise-grade Machine Learning and AI system design</p>
+              </div>
+            </div>
+            <div class="timeline-item" data-reveal>
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <span class="tl-badge deloitte">Deloitte</span>
+                <h5>Programming in Python</h5>
+                <p>Professional-grade Python for data science and automation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS SECTION ── -->
+  <section id="projects" class="section projects-section">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2 class="section-title">Built <span class="gradient-text">Systems</span></h2>
+        <p class="section-subtitle">Each project is a full-scale AI case study — problem defined, solution engineered,
+          impact measured.</p>
+      </div>
+
+      <!-- CropScout Pro -->
+      <div class="project-case" id="cropscout" data-reveal>
+        <div class="case-header">
+          <div class="case-meta">
+            <span class="case-num">/ 01</span>
+            <span class="case-type">Agricultural Intelligence</span>
+          </div>
+          <div class="case-status"><span class="status-dot"></span>Live System</div>
+        </div>
+
+        <div class="case-body">
+          <div class="case-left">
+            <div class="project-emoji">🌾</div>
+            <h3 class="project-title">CropScout<br /><span class="gradient-text">Pro</span></h3>
+            <p class="project-desc">AI-powered smart agricultural monitoring system that provides real-time crop health
+              analysis, weather intelligence, and predictive pest management for modern farming.</p>
+
+            <div class="pif-grid">
+              <div class="pif-item problem">
+                <h5>Problem</h5>
+                <p>Farmers lack real-time, data-driven insights for crop decision-making, leading to significant yield
+                  losses.</p>
+              </div>
+              <div class="pif-item solution">
+                <h5>Solution</h5>
+                <p>Multi-model ML pipeline combining weather APIs, satellite data, and crop analytics into an actionable
+                  intelligence dashboard.</p>
+              </div>
+              <div class="pif-item impact">
+                <h5>Impact</h5>
+                <p>Risk reduction system with pest prediction, weather alerts, and crop health scoring — empowering
+                  data-driven agriculture.</p>
+              </div>
+            </div>
+
+            <div class="tech-tags">
+              <span>Python</span><span>Scikit-Learn</span><span>Weather APIs</span><span>Pandas</span><span>NumPy</span>
+            </div>
+
+            <button class="arch-btn" onclick="openModal('cropModal')">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="1" y="1" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.2" />
+                <path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              </svg>
+              View Architecture
+            </button>
+          </div>
+
+          <div class="case-right">
+            <div class="project-dashboard cropscout-dash">
+              <div class="dash-header">
+                <div class="dash-dots"><span></span><span></span><span></span></div>
+                <span class="dash-title">CropScout Dashboard</span>
+                <span class="dash-status live">● LIVE</span>
+              </div>
+              <div class="dash-metrics">
+                <div class="metric-card">
+                  <div class="metric-icon">🌡️</div>
+                  <div>
+                    <div class="metric-val" id="tempVal">28°C</div>
+                    <div class="metric-lbl">Temperature</div>
+                  </div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-icon">💧</div>
+                  <div>
+                    <div class="metric-val" id="humVal">72%</div>
+                    <div class="metric-lbl">Humidity</div>
+                  </div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-icon">🌿</div>
+                  <div>
+                    <div class="metric-val" id="healthVal">89</div>
+                    <div class="metric-lbl">Health Score</div>
+                  </div>
+                </div>
+              </div>
+              <div class="dash-chart">
+                <div class="chart-label">Yield Prediction (7-day)</div>
+                <div class="chart-bars">
+                  <div class="bar-wrap">
+                    <div class="bar" style="--h:60%"></div><span>Mon</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="--h:75%"></div><span>Tue</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="--h:55%"></div><span>Wed</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="--h:88%"></div><span>Thu</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="--h:70%"></div><span>Fri</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="--h:92%"></div><span>Sat</span>
+                  </div>
+                  <div class="bar-wrap">
+                    <div class="bar" style="--h:80%"></div><span>Sun</span>
+                  </div>
+                </div>
+              </div>
+              <div class="dash-alert">
+                <span class="alert-icon">⚠️</span>
+                <span class="alert-text">Pest risk detected in Sector 4 — AI recommends immediate action</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WildGuard AI -->
+      <div class="project-case wildguard-case" id="wildguard" data-reveal>
+        <div class="case-header">
+          <div class="case-meta">
+            <span class="case-num">/ 02</span>
+            <span class="case-type">Computer Vision · Security</span>
+          </div>
+          <div class="case-status"><span class="status-dot"></span>Active System</div>
+        </div>
+
+        <div class="case-body case-body-rev">
+          <div class="case-left">
+            <div class="project-emoji">🛡</div>
+            <h3 class="project-title">WildGuard<br /><span class="gradient-text-green">AI</span></h3>
+            <p class="project-desc">Real-time AI-powered motion detection and safety monitoring system using computer
+              vision to protect forests and rural communities from threats.</p>
+
+            <div class="pif-grid">
+              <div class="pif-item problem">
+                <h5>Problem</h5>
+                <p>Wildlife poaching and rural security threats go undetected without intelligent, real-time
+                  surveillance systems.</p>
+              </div>
+              <div class="pif-item solution">
+                <h5>Solution</h5>
+                <p>Computer vision pipeline with frame-by-frame motion analysis, AI alert generation, and instant
+                  notification dispatch.</p>
+              </div>
+              <div class="pif-item impact">
+                <h5>Impact</h5>
+                <p>Enhanced forest and rural safety with sub-second detection latency and automated emergency alert
+                  cascades.</p>
+              </div>
+            </div>
+
+            <div class="tech-tags green-tags">
+              <span>Computer Vision</span><span>OpenCV</span><span>Python</span><span>Motion Analysis</span><span>Alert
+                System</span>
+            </div>
+
+            <button class="arch-btn green-btn" onclick="openModal('wildModal')">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="1" y="1" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.2" />
+                <path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+              </svg>
+              View Architecture
+            </button>
+          </div>
+
+          <div class="case-right">
+            <div class="project-dashboard wildguard-dash">
+              <div class="dash-header">
+                <div class="dash-dots"><span></span><span></span><span></span></div>
+                <span class="dash-title">WildGuard Monitor</span>
+                <span class="dash-status alert-mode">● SCANNING</span>
+              </div>
+              <div class="cctv-grid">
+                <div class="cctv-feed" id="feed1">
+                  <div class="feed-label">CAM-01 · Forest North</div>
+                  <div class="feed-scan"></div>
+                  <div class="motion-box" id="motionBox1"></div>
+                </div>
+                <div class="cctv-feed dim-feed" id="feed2">
+                  <div class="feed-label">CAM-02 · Perimeter</div>
+                  <div class="feed-scan"></div>
+                </div>
+                <div class="cctv-feed dim-feed" id="feed3">
+                  <div class="feed-label">CAM-03 · Gate</div>
+                  <div class="feed-scan"></div>
+                </div>
+                <div class="cctv-feed" id="feed4">
+                  <div class="feed-label">CAM-04 · Trail East</div>
+                  <div class="feed-scan"></div>
+                  <div class="motion-box" id="motionBox2" style="top:30%;left:60%"></div>
+                </div>
+              </div>
+              <div class="alert-bar" id="wildAlert">
+                <div class="alert-pulse"></div>
+                <span>🚨 MOTION DETECTED — CAM-01 · AI analyzing threat level…</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── AI LAB SECTION ── -->
+  <section id="ai-lab" class="section ai-lab-section">
+    <div class="ai-lab-bg"></div>
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2 class="section-title">Ask <span class="gradient-text">Sri Hari AI</span></h2>
+        <p class="section-subtitle">Interact with an intelligent assistant built to explain projects, concepts, and
+          research paths.</p>
+      </div>
+
+      <div class="ai-lab-content" data-reveal>
+        <div class="ai-orb-container">
+          <div class="ai-orb" id="aiOrb">
+            <div class="orb-ring r1"></div>
+            <div class="orb-ring r2"></div>
+            <div class="orb-ring r3"></div>
+            <div class="orb-core">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="8" fill="url(#orbGrad)" />
+                <circle cx="20" cy="20" r="16" stroke="url(#orbGrad)" stroke-width="0.5" opacity="0.5" />
+                <defs>
+                  <radialGradient id="orbGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#a78bfa" />
+                    <stop offset="100%" stop-color="#3b82f6" />
+                  </radialGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+          <div class="orb-label">SHS · AI Assistant</div>
+          <div class="orb-status"><span class="orb-dot"></span>Online · Ready to Help</div>
+        </div>
+
+        <div class="chat-window" id="chatWindow">
+          <div class="chat-header">
+            <div class="chat-orb-mini">
+              <div class="orb-mini-pulse"></div>
+              <span>SHS</span>
+            </div>
+            <div class="chat-title">
+              <h4>Sri Hari Sundar AI</h4>
+              <p>AI Developer · Research Assistant</p>
+            </div>
+            <div class="chat-live"><span class="live-dot"></span>Live</div>
+          </div>
+
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-msg ai-msg">
+              <div class="msg-avatar">SHS</div>
+              <div class="msg-bubble">
+                <p>Hi! I'm Sri Hari Sundar's AI assistant. I can help you understand my AI projects, explain machine
+                  learning concepts, discuss career paths, or simulate a technical interview.</p>
+                <p style="margin-top:8px; opacity:0.7; font-size:0.8em;">Try asking: "Tell me about CropScout Pro" or
+                  "What is your ML tech stack?"</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-suggestions">
+            <button class="suggestion-chip" onclick="sendSuggestion('Tell me about CropScout Pro')">🌾 CropScout
+              Pro</button>
+            <button class="suggestion-chip" onclick="sendSuggestion('What is your ML tech stack?')">🛠 Tech
+              Stack</button>
+            <button class="suggestion-chip" onclick="sendSuggestion('Give me an ML roadmap')">🗺 ML Roadmap</button>
+            <button class="suggestion-chip" onclick="sendSuggestion('Tell me about WildGuard AI')">🛡 WildGuard
+              AI</button>
+          </div>
+
+          <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input"
+              placeholder="Ask about AI, ML, Projects, Career, or Research…" />
+            <button class="chat-send" id="chatSendBtn" onclick="sendMessage()">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M16 9L2 2l4 7-4 7 14-7z" fill="currentColor" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TECH STACK SECTION ── -->
+  <section id="tech" class="section tech-section">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2 class="section-title">Tech <span class="gradient-text">Stack</span></h2>
+        <p class="section-subtitle">A curated toolkit built through 550+ hours of AI tool exploration and real system
+          development.</p>
+      </div>
+
+      <div class="tech-universe" data-reveal>
+        <!-- Radar Chart -->
+        <div class="radar-container">
+          <canvas id="radarChart" width="300" height="300"></canvas>
+          <div class="radar-label">Skill Radar</div>
+        </div>
+
+        <!-- Skill Clusters -->
+        <div class="skill-clusters">
+          <div class="cluster" data-reveal>
+            <div class="cluster-header">
+              <div class="cluster-icon lang-icon">{ }</div>
+              <h4>Languages</h4>
+            </div>
+            <div class="skill-orbs">
+              <div class="skill-orb float-anim" style="--delay:0s; --color:#3b82f6">
+                <span class="orb-icon">🐍</span>
+                <span>Python</span>
+                <div class="orb-glow" style="--glow:#3b82f6"></div>
+              </div>
+              <div class="skill-orb float-anim" style="--delay:0.3s; --color:#a78bfa">
+                <span class="orb-icon">⚙️</span>
+                <span>C++</span>
+                <div class="orb-glow" style="--glow:#a78bfa"></div>
+              </div>
+              <div class="skill-orb float-anim" style="--delay:0.6s; --color:#f59e0b">
+                <span class="orb-icon">☕</span>
+                <span>Java</span>
+                <div class="orb-glow" style="--glow:#f59e0b"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cluster" data-reveal>
+            <div class="cluster-header">
+              <div class="cluster-icon ai-icon">🧠</div>
+              <h4>AI Stack</h4>
+            </div>
+            <div class="skill-orbs">
+              <div class="skill-orb float-anim" style="--delay:0.1s; --color:#8b5cf6">
+                <span class="orb-icon">🔗</span>
+                <span>LangChain</span>
+                <div class="orb-glow" style="--glow:#8b5cf6"></div>
+              </div>
+              <div class="skill-orb float-anim" style="--delay:0.4s; --color:#06b6d4">
+                <span class="orb-icon">🐼</span>
+                <span>Pandas</span>
+                <div class="orb-glow" style="--glow:#06b6d4"></div>
+              </div>
+              <div class="skill-orb float-anim" style="--delay:0.7s; --color:#10b981">
+                <span class="orb-icon">🔢</span>
+                <span>NumPy</span>
+                <div class="orb-glow" style="--glow:#10b981"></div>
+              </div>
+              <div class="skill-orb float-anim" style="--delay:1s; --color:#f97316">
+                <span class="orb-icon">📊</span>
+                <span>Scikit-Learn</span>
+                <div class="orb-glow" style="--glow:#f97316"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cluster" data-reveal>
+            <div class="cluster-header">
+              <div class="cluster-icon tools-icon">🛠</div>
+              <h4>Dev Tools</h4>
+            </div>
+            <div class="skill-orbs">
+              <div class="skill-orb float-anim" style="--delay:0.2s; --color:#3b82f6">
+                <span class="orb-icon">💻</span>
+                <span>VS Code</span>
+                <div class="orb-glow" style="--glow:#3b82f6"></div>
+              </div>
+              <div class="skill-orb float-anim" style="--delay:0.5s; --color:#34d399">
+                <span class="orb-icon">📱</span>
+                <span>Android Studio</span>
+                <div class="orb-glow" style="--glow:#34d399"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cluster special-cluster" data-reveal>
+            <div class="cluster-header">
+              <div class="cluster-icon explore-icon">🚀</div>
+              <h4>AI Exploration</h4>
+            </div>
+            <div class="explore-badge">
+              <div class="explore-number" id="toolsCount">0</div>
+              <div class="explore-label">AI Tools<br />Practiced</div>
+              <div class="explore-glow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── IMPACT SECTION ── -->
+  <section id="impact" class="section impact-section">
+    <div class="impact-bg"></div>
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2 class="section-title">The <span class="gradient-text">Numbers</span></h2>
+        <p class="section-subtitle">Quantified results from real-world AI system development.</p>
+      </div>
+
+      <div class="impact-grid" data-reveal>
+        <div class="impact-card" data-count="2" data-suffix="+" data-label="AI Systems Built">
+          <div class="impact-num" id="counter0">0</div>
+          <div class="impact-unit">+</div>
+          <div class="impact-label">AI Systems Built</div>
+          <div class="impact-desc">Full-stack AI solutions deployed for agriculture and security domains.</div>
+          <div class="impact-glow" style="--glow-color: #3b82f6"></div>
+        </div>
+        <div class="impact-card" data-count="550" data-suffix="+" data-label="AI Tools Explored">
+          <div class="impact-num" id="counter1">0</div>
+          <div class="impact-unit">+</div>
+          <div class="impact-label">AI Tools Explored</div>
+          <div class="impact-desc">Hands-on experience across the complete modern AI toolchain.</div>
+          <div class="impact-glow" style="--glow-color: #a78bfa"></div>
+        </div>
+        <div class="impact-card" data-count="3" data-suffix="+" data-label="Global Certifications">
+          <div class="impact-num" id="counter2">0</div>
+          <div class="impact-unit">+</div>
+          <div class="impact-label">Global Certifications</div>
+          <div class="impact-desc">Certified by IIT Bombay, IBM, and Deloitte — top global institutions.</div>
+          <div class="impact-glow" style="--glow-color: #34d399"></div>
+        </div>
+        <div class="impact-card daily-card">
+          <div class="impact-num daily-icon">∞</div>
+          <div class="impact-label">Daily AI Research</div>
+          <div class="impact-desc">Consistent, disciplined daily practice in cutting-edge AI research and development.
+          </div>
+          <div class="impact-glow" style="--glow-color: #f59e0b"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-line"></div>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-bracket">[</span>
+          <span class="logo-name">SHS</span>
+          <span class="logo-bracket">]</span>
+        </div>
+        <div class="footer-center">
+          <p class="footer-name">Sri Hari Sundar R</p>
+          <p class="footer-role">AI Developer · Intelligent Systems Builder</p>
+        </div>
+        <div class="footer-right">
+          <p class="footer-tagline">"Engineering Intelligence<br />for Real-World Impact."</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Designed & Engineered by <strong>Sri Hari Sundar R</strong> · AI Developer | Intelligent Systems Builder</p>
+        <p class="footer-year">© 2026 · Built with intelligence</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── MODALS ── -->
+  <!-- CropScout Deep Technical Architecture Modal -->
+  <div class="modal-overlay" id="cropModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('cropModal')">✕</button>
+      <h3 class="modal-title">🌾 CropScout Pro — Technical Deep Dive</h3>
+
+      <div class="arch-layers">
+        <div class="arch-layer" style="--color:#3b82f6; --delay:0s">
+          <div class="layer-num">L1</div>
+          <div class="layer-content">
+            <h5>Data Ingestion Layer</h5>
+            <p>Weather APIs · Satellite NDVI imagery · IoT Sensor telemetry · Historical crop datasets</p>
+          </div>
+        </div>
+        <div class="arch-connector"><svg width="2" height="30" viewBox="0 0 2 30">
+            <line x1="1" y1="0" x2="1" y2="30" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4" />
+          </svg></div>
+        <div class="arch-layer" style="--color:#a78bfa; --delay:0.15s">
+          <div class="layer-num">L2</div>
+          <div class="layer-content">
+            <h5>Data Processing &amp; Feature Engineering</h5>
+            <p>Pandas ETL pipelines · NumPy feature vectors · MinMaxScaler normalization · Missing value imputation ·
+              Outlier detection</p>
+          </div>
+        </div>
+        <div class="arch-connector"><svg width="2" height="30" viewBox="0 0 2 30">
+            <line x1="1" y1="0" x2="1" y2="30" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4" />
+          </svg></div>
+        <div class="arch-layer" style="--color:#34d399; --delay:0.3s">
+          <div class="layer-num">L3</div>
+          <div class="layer-content">
+            <h5>ML Intelligence Engine</h5>
+            <p>Random Forest (crop health) · Gradient Boosting (pest risk) · Ridge Regression (yield) · Anomaly
+              detection IQR</p>
+          </div>
+        </div>
+        <div class="arch-connector"><svg width="2" height="30" viewBox="0 0 2 30">
+            <line x1="1" y1="0" x2="1" y2="30" stroke="#34d399" stroke-width="1" stroke-dasharray="4" />
+          </svg></div>
+        <div class="arch-layer" style="--color:#f59e0b; --delay:0.45s">
+          <div class="layer-num">L4</div>
+          <div class="layer-content">
+            <h5>Alert &amp; Output System</h5>
+            <p>Real-time dashboard · Multi-threshold push alerts · Farmer recommendations · PDF report generation</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section-title">01 — Problem Statement</div>
+      <p class="deep-para">Indian agriculture accounts for 17% of GDP yet 70% of farmers rely on manual observation for
+        crop decisions. This results in delayed pest detection (avg. 5–7 days late), sub-optimal irrigation, and 30–40%
+        preventable yield losses. The core problem is the absence of a unified, real-time, data-driven decision layer
+        for smallholder farmers.</p>
+      <div class="tech-grid-2">
+        <div class="info-card">
+          <span class="info-card-label">Root Cause</span>
+          <div class="info-card-val">No structured feedback loop between environmental data, crop state, and farmer
+            decisions.</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Scale of Impact</span>
+          <div class="info-card-val green">~600M farmers globally face this data blindspot — a massive AI opportunity.
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section-title">02 — System Architecture (High-Level)</div>
+      <p class="deep-para">CropScout Pro follows a <strong>4-layer modular pipeline</strong>: Ingestion → Processing →
+        Intelligence → Output. Each layer is decoupled and stateless where possible, designed for plug-and-replace
+        extensibility. The architecture treats each component (weather parser, pest model, alert dispatcher) as an
+        independent module callable via Python function APIs — avoiding monolithic coupling.</p>
+      <div class="tech-grid-3">
+        <div class="info-card">
+          <span class="info-card-label">Design Pattern</span>
+          <div class="info-card-val blue">ETL → ML → Action Pipeline</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Deployment</span>
+          <div class="info-card-val violet">Local Python + Scalable Cloud</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Module Coupling</span>
+          <div class="info-card-val green">Loosely Coupled — Independent</div>
+        </div>
+      </div>
+
+      <div class="modal-section-title">03 — Data Pipeline Explanation</div>
+      <p class="deep-para">Multi-source ingestion: OpenWeatherMap API (temperature, humidity, wind), farmer-reported
+        crop state CSV, and simulated IoT sensor data (soil moisture, pH). Pandas DataFrames serve as the core data
+        structure throughout the pipeline.</p>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-step-num">01</div>
+          <div class="flow-step-content"><strong>Ingestion</strong><span>Weather API JSON parsed → Pandas DataFrame.
+              Sensor readings normalized to [0,1] using MinMaxScaler (Scikit-Learn preprocessing).</span></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">02</div>
+          <div class="flow-step-content"><strong>Cleaning</strong><span>Missing values filled using rolling 3-day moving
+              average (Pandas .fillna + .rolling). Outliers clipped at ±3σ using NumPy percentile operations.</span>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">03</div>
+          <div class="flow-step-content"><strong>Feature Engineering</strong><span>Derived features: Vapour Pressure
+              Deficit (VPD), Humidity-Temperature Stress Index (HTSI), 7-day temperature trend slope via NumPy
+              polyfit.</span></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">04</div>
+          <div class="flow-step-content"><strong>Model Input</strong><span>Final feature matrix shape: (n_samples × 18
+              features). Passed as NumPy array to Scikit-Learn model .predict() and .predict_proba() calls.</span></div>
+        </div>
+      </div>
+
+      <div class="modal-section-title">04 — Model Selection &amp; Training</div>
+      <div class="tech-grid-2">
+        <div class="info-card">
+          <span class="info-card-label">Crop Health Model</span>
+          <div class="info-card-val">Random Forest Classifier — robust to feature collinearity, provides
+            feature_importances_ for explainability. Accuracy: ~87%.</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Pest Risk Model</span>
+          <div class="info-card-val violet">Gradient Boosting Classifier — superior on imbalanced pest-occurrence data.
+            F1-Score: ~0.83.</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Yield Forecast</span>
+          <div class="info-card-val blue">Ridge Regression (RidgeCV) with cross-validated alpha selection. RMSE reduced
+            22% vs baseline Linear Regression.</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Training Strategy</span>
+          <div class="info-card-val green">Stratified K-Fold (k=5) for class imbalance. GridSearchCV for hyperparameter
+            tuning. random_state=42 for full reproducibility.</div>
+        </div>
+      </div>
+      <p class="deep-para"><strong>Edge case handled:</strong> Pest occurrence labels highly imbalanced (&lt;10%
+        positive class). SMOTE oversampling (imbalanced-learn) applied before training to prevent classifier defaulting
+        to majority class — increased recall from 0.12 to 0.71.</p>
+
+      <div class="modal-section-title">05 — Alert Mechanism Logic</div>
+      <p class="deep-para">Multi-threshold cascade: Primary threshold (model probability &gt; 0.65) → composite risk
+        score computed → CRITICAL alert if &gt;70, WARNING if 40–70, no action if &lt;40. Auto-resolves when risk stays
+        below 30 for 3 consecutive cycles. This balances sensitivity vs. alert fatigue.</p>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-step-num">P</div>
+          <div class="flow-step-content"><strong>Probability Gating</strong><span>model.predict_proba()[:,1] &gt; 0.65
+              triggers risk evaluation — prevents low-confidence false positives from generating alerts.</span></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">R</div>
+          <div class="flow-step-content"><strong>Risk Scoring</strong><span>Weighted composite = 0.4×pest_prob +
+              0.35×weather_stress + 0.25×historical_freq. Normalized to [0–100].</span></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">D</div>
+          <div class="flow-step-content"><strong>Dispatch</strong><span>CRITICAL (&gt;70): immediate push notification +
+              log entry. WARNING (40–70): flagged for next cycle re-check.</span></div>
+        </div>
+      </div>
+
+      <div class="modal-section-title">06 — Performance Optimization</div>
+      <div class="tech-grid-2">
+        <div class="info-card">
+          <span class="info-card-label">Vectorization</span>
+          <div class="info-card-val">NumPy broadcasting for all feature computations — 40x faster than Python loops on
+            10k-row datasets.</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Pipeline Caching</span>
+          <div class="info-card-val blue">Scikit-Learn Pipeline with joblib memory caching — avoids re-computing
+            transformers on repeated inference runs.</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Model Serialization</span>
+          <div class="info-card-val violet">Trained models saved via joblib.dump() — eliminates retraining overhead.
+            Combined load time under 200ms.</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">API Caching</span>
+          <div class="info-card-val green">JSON cache with TTL timestamp — only re-fetches API data if &gt;30 min stale.
+            Reduces API calls by ~70%.</div>
+        </div>
+      </div>
+
+      <div class="modal-section-title">07 — Challenges Faced</div>
+      <div class="challenge-item">
+        <span class="challenge-icon">⚠️</span>
+        <div><strong>Data Scarcity &amp; Label Noise</strong>
+          <p>Pest occurrence labels from farmer reports were inconsistent. Fixed by cross-referencing weather risk
+            tables and applying ≥80% agreement threshold across data sources before labelling.</p>
+        </div>
+      </div>
+      <div class="challenge-item">
+        <span class="challenge-icon">📡</span>
+        <div><strong>API Rate Limiting</strong>
+          <p>Free-tier API (60 calls/hr) capped data freshness. Implemented exponential backoff retry logic + local
+            caching to minimize API calls while preserving recency.</p>
+        </div>
+      </div>
+      <div class="challenge-item">
+        <span class="challenge-icon">📊</span>
+        <div><strong>Severe Class Imbalance</strong>
+          <p>Pest events occur only ~8% of the time. Initial RF achieved 92% accuracy but near-zero recall on positive
+            class. Resolved via SMOTE + class_weight='balanced' + switching primary metric to F1-score.</p>
+        </div>
+      </div>
+
+      <div class="modal-section-title">08 — Bugs Encountered &amp; Fixes</div>
+      <div class="bug-item bug">
+        <div class="bug-item-label">BUG — Data Leakage in Preprocessing</div>
+        <p>MinMaxScaler fit on entire dataset before train/test split, leaking test statistics into training — detected
+          via suspiciously high validation R²=0.99.</p>
+      </div>
+      <div class="bug-item fix">
+        <div class="bug-item-label">FIX — Scaler Moved Inside Pipeline</div>
+        <p>Scaler placed inside Scikit-Learn Pipeline object — ensures scaler.fit() only sees training fold data during
+          cross-validation. Validation accuracy correctly normalized to ~87%.</p>
+      </div>
+      <div class="bug-item bug">
+        <div class="bug-item-label">BUG — API KeyError on Missing Fields</div>
+        <p>Weather API omits 'wind_gust' in calm conditions, causing KeyError and full pipeline crash on cold days.</p>
+      </div>
+      <div class="bug-item fix">
+        <div class="bug-item-label">FIX — Safe dict.get() with Defaults</div>
+        <p>Replaced direct key access with response.get('wind_gust', 0.0) throughout ingestion layer — pipeline now
+          handles partial API responses gracefully without exceptions.</p>
+      </div>
+
+      <div class="modal-section-title">09 — Security Considerations</div>
+      <div style="margin-bottom: 16px;">
+        <span class="security-badge">🔑 API Keys in .env</span>
+        <span class="security-badge">🚫 No hardcoded secrets</span>
+        <span class="security-badge">🔒 Input validation</span>
+        <span class="security-badge">📋 Access logging</span>
+        <span class="security-badge">🛡 Sanitized inputs</span>
+      </div>
+      <p class="deep-para">API keys stored in environment variables via python-dotenv — never committed to version
+        control. All user-supplied crop data validated for type and range before entering the ML pipeline, preventing
+        adversarial feature injection that could bias model outputs.</p>
+
+      <div class="modal-section-title">10 — Scalability Plan</div>
+      <div class="tech-grid-2">
+        <div class="info-card">
+          <span class="info-card-label">Phase 1 (Current)</span>
+          <div class="info-card-val">Local Python runtime. Single-farm usage. File-based data storage (CSV/JSON).</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Phase 2 (Near-term)</span>
+          <div class="info-card-val blue">Dockerized FastAPI backend. PostgreSQL for structured crop data. REST API for
+            Android/iOS clients.</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">Phase 3 (Scale)</span>
+          <div class="info-card-val violet">Apache Kafka for real-time sensor streams. Ray Distributed for parallel
+            model inference. AWS/GCP cloud deployment.</div>
+        </div>
+        <div class="info-card">
+          <span class="info-card-label">ML Ops at Scale</span>
+          <div class="info-card-val green">MLflow for experiment tracking. Online learning (river library) to adapt
+            models to new regions without full retraining.</div>
+        </div>
+      </div>
+
+      <div class="modal-section-title">11 — Future Improvements</div>
+      <div class="future-item">Deep learning crop disease classifier using ResNet-50 on phone camera images with
+        transfer learning</div>
+      <div class="future-item">Satellite NDVI integration via Google Earth Engine API for field-level vegetation health
+        mapping</div>
+      <div class="future-item">Graph Neural Network for modeling inter-farm disease spread across geographic regions
+      </div>
+      <div class="future-item">Voice-first interface in Tamil/Hindi using OpenAI Whisper STT for non-literate farmers
+      </div>
+      <div class="future-item">Federated Learning across farm nodes — model improves without centralizing sensitive farm
+        data</div>
+      <div class="future-item">Explainable AI (SHAP values) dashboard so farmers understand exactly why each alert was
+        triggered</div>
+    </div>
+  </div>
+  <!-- WildGuard Architecture Modal -->
+  <div class="modal-overlay" id="wildModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('wildModal')">✕</button>
+      <h3 class="modal-title">🛡 WildGuard AI — Architecture</h3>
+      <div class="arch-layers">
+        <div class="arch-layer" style="--color:#34d399; --delay:0s">
+          <div class="layer-num">L1</div>
+          <div class="layer-content">
+            <h5>Vision Input Layer</h5>
+            <p>CCTV streams · Frame buffer · Multi-camera orchestration · Real-time capture</p>
+          </div>
+        </div>
+        <div class="arch-connector"><svg width="2" height="30" viewBox="0 0 2 30">
+            <line x1="1" y1="0" x2="1" y2="30" stroke="#34d399" stroke-width="1" stroke-dasharray="4" />
+          </svg></div>
+        <div class="arch-layer" style="--color:#3b82f6; --delay:0.2s">
+          <div class="layer-num">L2</div>
+          <div class="layer-content">
+            <h5>Computer Vision Engine</h5>
+            <p>OpenCV processing · Background subtraction · Motion vector analysis · Object tracking</p>
+          </div>
+        </div>
+        <div class="arch-connector"><svg width="2" height="30" viewBox="0 0 2 30">
+            <line x1="1" y1="0" x2="1" y2="30" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4" />
+          </svg></div>
+        <div class="arch-layer" style="--color:#a78bfa; --delay:0.4s">
+          <div class="layer-num">L3</div>
+          <div class="layer-content">
+            <h5>AI Threat Assessment</h5>
+            <p>Threat classification · Confidence scoring · Severity ranking · False positive filtering</p>
+          </div>
+        </div>
+        <div class="arch-connector"><svg width="2" height="30" viewBox="0 0 2 30">
+            <line x1="1" y1="0" x2="1" y2="30" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4" />
+          </svg></div>
+        <div class="arch-layer" style="--color:#ef4444; --delay:0.6s">
+          <div class="layer-num">L4</div>
+          <div class="layer-content">
+            <h5>Alert Dispatch System</h5>
+            <p>Instant notifications · SMS/Push alerts · Security log · Live monitoring dashboard</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- ════════ A. DEVELOPER SNAPSHOT ════════ -->
+  <section class="section snapshot-section" id="developer-snapshot">
+    <div class="container">
+      <div class="section-header pm-reveal">
+        <h2 class="section-title">
+          <span class="hr-robot-icon" data-tooltip="Recruiter? Explore my portfolio here." onclick="openAIChat()">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="5" y="8" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.6"/>
+              <rect x="9" y="2" width="10" height="7" rx="2" stroke="currentColor" stroke-width="1.4"/>
+              <line x1="14" y1="9" x2="14" y2="6" stroke="currentColor" stroke-width="1.4"/>
+              <circle cx="10" cy="15" r="2" fill="currentColor"/>
+              <circle cx="18" cy="15" r="2" fill="currentColor"/>
+              <path d="M9 20h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="2" y1="14" x2="5" y2="14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="23" y1="14" x2="26" y2="14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </span>
+          Developer <span class="gradient-text">Snapshot</span>
+        </h2>
+        <p class="section-subtitle">Who I am, how I think, and what makes me uniquely effective as an AI developer.</p>
+      </div>
+      <div class="snapshot-grid pm-reveal">
+        <div class="snapshot-card">
+          <div class="snap-icon violet">🧰</div>
+          <div class="snap-title">CORE TECH STACK</div>
+          <div class="badge-cloud">
+            <span class="tech-badge"><span class="tb-dot tb-python"></span>Python</span>
+            <span class="tech-badge"><span class="tb-dot tb-ml"></span>Scikit-Learn</span>
+            <span class="tech-badge"><span class="tb-dot tb-tf"></span>TensorFlow</span>
+            <span class="tech-badge"><span class="tb-dot tb-cv"></span>OpenCV</span>
+            <span class="tech-badge"><span class="tb-dot tb-js"></span>JavaScript</span>
+            <span class="tech-badge"><span class="tb-dot tb-react"></span>React Native</span>
+            <span class="tech-badge"><span class="tb-dot tb-ml"></span>Gemini API</span>
+            <span class="tech-badge"><span class="tb-dot tb-python"></span>Pandas · NumPy</span>
+          </div>
+        </div>
+        <div class="snapshot-card">
+          <div class="snap-icon amber">💡</div>
+          <div class="snap-title">CODING PHILOSOPHY</div>
+          <blockquote class="philosophy-quote">"I build AI not for demos, but for deployment — systems that survive
+            real-world conditions, serve real users, and deliver measurable outcomes."</blockquote>
+        </div>
+        <div class="snapshot-card">
+          <div class="snap-icon green">⚡</div>
+          <div class="snap-title">CORE STRENGTHS</div>
+          <div class="strength-list">
+            <div class="strength-item">
+              <div class="strength-label"><span class="strength-name">ML System Design</span><span
+                  class="strength-pct">92%</span></div>
+              <div class="strength-track">
+                <div class="strength-fill" data-width="92%"></div>
+              </div>
+            </div>
+            <div class="strength-item">
+              <div class="strength-label"><span class="strength-name">Data Engineering</span><span
+                  class="strength-pct">85%</span></div>
+              <div class="strength-track">
+                <div class="strength-fill green-fill" data-width="85%"></div>
+              </div>
+            </div>
+            <div class="strength-item">
+              <div class="strength-label"><span class="strength-name">Problem Framing</span><span
+                  class="strength-pct">90%</span></div>
+              <div class="strength-track">
+                <div class="strength-fill amber-fill" data-width="90%"></div>
+              </div>
+            </div>
+            <div class="strength-item">
+              <div class="strength-label"><span class="strength-name">Rapid Prototyping</span><span
+                  class="strength-pct">88%</span></div>
+              <div class="strength-track">
+                <div class="strength-fill" data-width="88%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="snapshot-card">
+          <div class="snap-icon blue">🔍</div>
+          <div class="snap-title">PROBLEM-SOLVING STYLE</div>
+          <div class="snap-content">I approach every problem as a system — defining the input, process, and measurable
+            output before writing a single line of code. I prioritize explainability, edge cases, and real-world
+            constraints over academic accuracy.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ B. INTERACTIVE SKILL MATRIX ════════ -->
+  <section class="section skillmatrix-section" id="skill-matrix">
+    <div class="container">
+      <div class="section-header pm-reveal">
+        <h2 class="section-title">Skill <span class="gradient-text">Matrix</span></h2>
+        <p class="section-subtitle">Proficiency heatmap — click a category, hover any cell to explore depth.</p>
+      </div>
+      <div class="pm-reveal">
+        <div class="matrix-tabs">
+          <button class="matrix-tab active" data-tab="programming">Programming</button>
+          <button class="matrix-tab" data-tab="aiml">AI / ML</button>
+          <button class="matrix-tab" data-tab="tools">Tools</button>
+          <button class="matrix-tab" data-tab="frameworks">Frameworks</button>
+        </div>
+        <div id="panel-programming" class="matrix-panel active">
+          <div class="skill-cell heat-violet" style="--heat:1"><span class="sc-emoji">🐍</span><span
+              class="sc-name">Python</span><span class="sc-level">EXPERT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot filled"></span>
+            </div>
+          </div>
+          <div class="skill-cell heat-amber" style="--heat:0.85"><span class="sc-emoji">📊</span><span
+              class="sc-name">Pandas</span><span class="sc-level">ADVANCED</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-blue" style="--heat:0.75"><span class="sc-emoji">🔢</span><span
+              class="sc-name">NumPy</span><span class="sc-level">ADVANCED</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-blue" style="--heat:0.7"><span class="sc-emoji">🌐</span><span
+              class="sc-name">JavaScript</span><span class="sc-level">PROFICIENT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-green" style="--heat:0.65"><span class="sc-emoji">🗄</span><span
+              class="sc-name">SQL</span><span class="sc-level">PROFICIENT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-violet" style="--heat:0.6"><span class="sc-emoji">🎨</span><span
+              class="sc-name">HTML / CSS</span><span class="sc-level">PROFICIENT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+        </div>
+        <div id="panel-aiml" class="matrix-panel">
+          <div class="skill-cell heat-violet" style="--heat:1"><span class="sc-emoji">🤖</span><span
+              class="sc-name">Scikit-Learn</span><span class="sc-level">EXPERT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot filled"></span>
+            </div>
+          </div>
+          <div class="skill-cell heat-amber" style="--heat:0.9"><span class="sc-emoji">👁</span><span
+              class="sc-name">OpenCV</span><span class="sc-level">ADVANCED</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-green" style="--heat:0.8"><span class="sc-emoji">🧠</span><span
+              class="sc-name">TensorFlow</span><span class="sc-level">ADVANCED</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-blue" style="--heat:0.75"><span class="sc-emoji">🔥</span><span
+              class="sc-name">PyTorch</span><span class="sc-level">LEARNING</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-violet" style="--heat:0.85"><span class="sc-emoji">💎</span><span
+              class="sc-name">Gemini API</span><span class="sc-level">ADVANCED</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-green" style="--heat:0.7"><span class="sc-emoji">📈</span><span
+              class="sc-name">XGBoost</span><span class="sc-level">PROFICIENT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+        </div>
+        <div id="panel-tools" class="matrix-panel">
+          <div class="skill-cell heat-violet" style="--heat:0.95"><span class="sc-emoji">🐙</span><span
+              class="sc-name">Git / GitHub</span><span class="sc-level">ADVANCED</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-blue" style="--heat:0.9"><span class="sc-emoji">📓</span><span
+              class="sc-name">Jupyter</span><span class="sc-level">EXPERT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot filled"></span>
+            </div>
+          </div>
+          <div class="skill-cell heat-green" style="--heat:0.8"><span class="sc-emoji">☁</span><span
+              class="sc-name">Google Colab</span><span class="sc-level">ADVANCED</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-amber" style="--heat:0.75"><span class="sc-emoji">🎨</span><span
+              class="sc-name">Figma</span><span class="sc-level">PROFICIENT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-blue" style="--heat:0.65"><span class="sc-emoji">🐳</span><span
+              class="sc-name">Docker</span><span class="sc-level">LEARNING</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-violet" style="--heat:0.7"><span class="sc-emoji">📊</span><span
+              class="sc-name">Matplotlib</span><span class="sc-level">ADVANCED</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+        </div>
+        <div id="panel-frameworks" class="matrix-panel">
+          <div class="skill-cell heat-blue" style="--heat:0.8"><span class="sc-emoji">📱</span><span
+              class="sc-name">React Native</span><span class="sc-level">PROFICIENT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot filled"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-green" style="--heat:0.7"><span class="sc-emoji">⚡</span><span
+              class="sc-name">FastAPI</span><span class="sc-level">LEARNING</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-violet" style="--heat:0.75"><span class="sc-emoji">🔗</span><span
+              class="sc-name">LangChain</span><span class="sc-level">PROFICIENT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+          <div class="skill-cell heat-amber" style="--heat:0.65"><span class="sc-emoji">🌊</span><span
+              class="sc-name">Expo</span><span class="sc-level">PROFICIENT</span>
+            <div class="sc-dots"><span class="sc-dot filled"></span><span class="sc-dot filled"></span><span
+                class="sc-dot filled"></span><span class="sc-dot"></span><span class="sc-dot"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ C. TECH RADAR ════════ -->
+  <section class="section techradar-section" id="tech-radar">
+    <div class="container">
+      <div class="section-header pm-reveal">
+        <h2 class="section-title">
+          <span class="research-icon" onclick="document.getElementById('research').scrollIntoView({behavior:'smooth'})">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="12" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="14" cy="14" r="8" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="14" cy="14" r="4" stroke="currentColor" stroke-width="1"/>
+              <circle cx="14" cy="14" r="1.5" fill="currentColor"/>
+              <line x1="14" y1="2" x2="14" y2="6" stroke="currentColor" stroke-width="1"/>
+              <line x1="14" y1="22" x2="14" y2="18" stroke="currentColor" stroke-width="1"/>
+              <line x1="2" y1="14" x2="6" y2="14" stroke="currentColor" stroke-width="1"/>
+              <line x1="22" y1="14" x2="18" y2="14" stroke="currentColor" stroke-width="1"/>
+            </svg>
+          </span>
+          Tech <span class="gradient-text">Radar</span>
+        </h2>
+        <p class="section-subtitle">Domain expertise visualised — the wider the polygon, the stronger the command.</p>
+      </div>
+      <div class="radar-layout pm-reveal">
+        <canvas id="techRadarCanvas"></canvas>
+        <div class="radar-legend">
+          <div class="radar-item"><span class="radar-dot" style="background:#a78bfa"></span><span class="radar-label">AI
+              / ML</span><span class="radar-score">88%</span></div>
+          <div class="radar-item"><span class="radar-dot" style="background:#60a5fa"></span><span
+              class="radar-label">Frontend</span><span class="radar-score">72%</span></div>
+          <div class="radar-item"><span class="radar-dot" style="background:#34d399"></span><span
+              class="radar-label">Backend</span><span class="radar-score">65%</span></div>
+          <div class="radar-item"><span class="radar-dot" style="background:#f59e0b"></span><span
+              class="radar-label">Data Engineering</span><span class="radar-score">80%</span></div>
+          <div class="radar-item"><span class="radar-dot" style="background:#ec4899"></span><span
+              class="radar-label">Cloud</span><span class="radar-score">55%</span></div>
+          <div class="radar-item"><span class="radar-dot" style="background:#a78bfa"></span><span
+              class="radar-label">Computer Vision</span><span class="radar-score">78%</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ D. GITHUB ACTIVITY ════════ -->
+  <section class="section github-section" id="github-activity">
+    <div class="container">
+      <div class="section-header pm-reveal">
+        <h2 class="section-title">GitHub <span class="gradient-text">Activity</span></h2>
+        <p class="section-subtitle">Consistent builder — shipping code every week, every month.</p>
+      </div>
+      <div class="github-layout pm-reveal">
+        <div class="contribution-grid-wrap">
+          <div class="contrib-header">
+            <span class="contrib-title">Contribution Graph — Last 6 Months</span>
+            <span class="contrib-count" id="contribCount">Calculating…</span>
+          </div>
+          <div class="contrib-grid" id="contribGrid"></div>
+          <div class="contrib-legend">
+            <span>Less</span>
+            <span class="cl-box c-0"></span><span class="cl-box c-1"></span><span class="cl-box c-2"></span><span
+              class="cl-box c-3"></span><span class="cl-box c-4"></span>
+            <span>More</span>
+          </div>
+        </div>
+        <div class="github-stats-col">
+          <div class="gh-stat-card">
+            <div class="gh-stat-label">TOTAL COMMITS</div>
+            <div class="gh-stat-value">550+</div>
+            <div class="gh-stat-sub">Across all repositories</div>
+          </div>
+          <div class="gh-stat-card">
+            <div class="gh-stat-label">REPOSITORIES</div>
+            <div class="gh-stat-value">12</div>
+            <div class="gh-stat-sub">Public &amp; private projects</div>
+          </div>
+          <div class="gh-stat-card">
+            <div class="gh-stat-label">TOP LANGUAGE</div>
+            <div class="gh-stat-value" style="color:#3572A5">Python</div>
+            <div class="gh-stat-sub">72% of all code written</div>
+          </div>
+          <div class="gh-stat-card">
+            <div class="gh-stat-label">STREAK</div>
+            <div class="gh-stat-value">Active</div>
+            <div class="gh-stat-sub">Regular daily contributions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ E. ACHIEVEMENT TIMELINE ════════ -->
+  <section class="section timeline-pro-section" id="achievements">
+    <div class="container">
+      <div class="section-header pm-reveal">
+        <h2 class="section-title">Achievement <span class="gradient-text">Timeline</span></h2>
+        <p class="section-subtitle">Key milestones in the journey from curious student to AI developer.</p>
+      </div>
+      <div class="timeline-pro">
+        <div class="tl-pro-item">
+          <div class="tl-pro-node green-node">🌾</div>
+          <div class="tl-pro-card">
+            <div class="tl-pro-date green-date">2024 — Flagship Project</div>
+            <div class="tl-pro-title">CropScout Pro — Agricultural AI Platform</div>
+            <div class="tl-pro-org">IIT Bombay AI Programme · Capstone Build</div>
+            <div class="tl-pro-desc">Designed and built an end-to-end ML pipeline for crop health, pest risk, and yield
+              prediction. Random Forest accuracy: 87%. Addressing 30–40% preventable crop losses.</div><span
+              class="tl-pro-badge green-badge">Production System</span>
+          </div>
+        </div>
+        <div class="tl-pro-item">
+          <div class="tl-pro-node">🏛</div>
+          <div class="tl-pro-card">
+            <div class="tl-pro-date">2024 — Certification</div>
+            <div class="tl-pro-title">IIT Bombay — AI &amp; ML Professional Certification</div>
+            <div class="tl-pro-org">Indian Institute of Technology, Bombay</div>
+            <div class="tl-pro-desc">Enrolled in India's most prestigious AI certification programme. Modules covering
+              ML, Deep Learning, NLP, Computer Vision, and MLOps.</div><span class="tl-pro-badge">IIT Bombay</span>
+          </div>
+        </div>
+        <div class="tl-pro-item">
+          <div class="tl-pro-node blue-node">🛡</div>
+          <div class="tl-pro-card">
+            <div class="tl-pro-date blue-date">2024 — Flagship Project</div>
+            <div class="tl-pro-title">WildGuard AI — Real-time Security System</div>
+            <div class="tl-pro-org">Computer Vision · Independent Build</div>
+            <div class="tl-pro-desc">Built a computer vision system for wildlife and intrusion detection using OpenCV
+              with sub-200ms detection latency and automated alert dispatch.</div><span
+              class="tl-pro-badge blue-badge">Live System</span>
+          </div>
+        </div>
+        <div class="tl-pro-item">
+          <div class="tl-pro-node">🏢</div>
+          <div class="tl-pro-card">
+            <div class="tl-pro-date">2024 — Certification</div>
+            <div class="tl-pro-title">IBM Data Science Professional Certificate</div>
+            <div class="tl-pro-org">IBM · Coursera</div>
+            <div class="tl-pro-desc">Completed intensive 10-course professional certificate covering Python, data
+              analysis, machine learning, and applied data science projects.</div><span class="tl-pro-badge">IBM
+              Certified</span>
+          </div>
+        </div>
+        <div class="tl-pro-item">
+          <div class="tl-pro-node green-node">🤖</div>
+          <div class="tl-pro-card">
+            <div class="tl-pro-date green-date">2024 — Certification</div>
+            <div class="tl-pro-title">Deloitte AI Academy — Foundations</div>
+            <div class="tl-pro-org">Deloitte · AI Training Programme</div>
+            <div class="tl-pro-desc">Validated AI and business intelligence foundations through Deloitte's professional
+              AI academy — an industry-recognised credential.</div><span class="tl-pro-badge green-badge">Industry
+              Cert</span>
+          </div>
+        </div>
+        <div class="tl-pro-item">
+          <div class="tl-pro-node blue-node">🚀</div>
+          <div class="tl-pro-card">
+            <div class="tl-pro-date blue-date">2023 — Origin</div>
+            <div class="tl-pro-title">Started AI/ML Learning Path</div>
+            <div class="tl-pro-org">Self-directed · Salem, Tamil Nadu</div>
+            <div class="tl-pro-desc">Began systematic study of AI, machine learning, and Python programming. Explored
+              550+ AI tools and built first intelligent systems independently.</div><span
+              class="tl-pro-badge blue-badge">Origin Story</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ F. WHY HIRE ME ════════ -->
+  <section class="section whyhireme-section" id="why-hire-me">
+    <div class="container">
+      <div class="whyhireme-inner pm-reveal">
+        <div class="whyhireme-tag"><span
+            style="width:6px;height:6px;border-radius:50%;background:#a78bfa;display:inline-block;animation:epBadgePulse 1.8s ease-in-out infinite"></span>&nbsp;Value
+          Proposition</div>
+        <h2 class="whyhireme-title">
+          <span class="hr-robot-icon" data-tooltip="Recruiter? Explore my portfolio here." onclick="openAIChat()">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="5" y="8" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.6"/>
+              <rect x="9" y="2" width="10" height="7" rx="2" stroke="currentColor" stroke-width="1.4"/>
+              <line x1="14" y1="9" x2="14" y2="6" stroke="currentColor" stroke-width="1.4"/>
+              <circle cx="10" cy="15" r="2" fill="currentColor"/>
+              <circle cx="18" cy="15" r="2" fill="currentColor"/>
+              <path d="M9 20h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="2" y1="14" x2="5" y2="14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="23" y1="14" x2="26" y2="14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </span>
+          Why Hire <span>Sri Hari?</span>
+        </h2>
+        <p class="whyhireme-sub">I combine IIT-level rigor with startup-speed execution. I don't just experiment with AI
+          — I ship production systems that solve real problems for real people.</p>
+        <div class="value-props">
+          <div class="value-prop"><span class="vp-icon">🎯</span>Impact-first thinking</div>
+          <div class="value-prop"><span class="vp-icon">⚡</span>Fast learner · 550+ AI tools</div>
+          <div class="value-prop"><span class="vp-icon">🏛</span>IIT Bombay certified</div>
+          <div class="value-prop"><span class="vp-icon">🌾</span>Real-world ML systems</div>
+          <div class="value-prop"><span class="vp-icon">🤝</span>Team-first mindset</div>
+        </div>
+        <div class="whyhireme-ctas">
+          <a href="mailto:sriharisundar.ai@gmail.com" class="pm-btn-primary">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.4" />
+              <path d="M1 5l7 5 7-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+            Hire Me
+          </a>
+          <a href="#" class="pm-btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.4" />
+              <path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+            </svg>
+            Download Resume
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ G. SMART CTA ════════ -->
+  <section class="section smart-cta-section" id="lets-build">
+    <div class="container">
+      <div class="cta-card pm-reveal">
+        <div>
+          <div class="cta-eyebrow">// OPEN TO OPPORTUNITIES</div>
+          <h2 class="cta-headline">Let's Build Something<br>Impactful Together</h2>
+          <p class="cta-desc">Looking for internships, research collaborations, and AI projects with real-world impact.
+            Available for full-time roles from 2026.</p>
+        </div>
+        <div class="cta-actions">
+          <a href="mailto:sriharisundar.ai@gmail.com" class="pm-btn-primary">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+              <rect x="1" y="2.5" width="13" height="10" rx="2" stroke="currentColor" stroke-width="1.3" />
+              <path d="M1 4.5l6.5 4.5L14 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+            </svg>
+            Start a Conversation
+          </a>
+          <a href="https://calendly.com" target="_blank" class="cta-meeting-btn">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+              <rect x="2" y="2" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.3" />
+              <path d="M5 1v2M10 1v2M2 6h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+            </svg>
+            Schedule a Meeting
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       HACKER TERMINAL — Interactive Dev Console
+  ══════════════════════════════════════════════════ -->
+
+  <section class="section terminal-section" id="terminal">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2 class="section-title">Dev <span class="gradient-text">Terminal</span></h2>
+        <p class="section-subtitle">Type a command and press Enter to explore the portfolio interactively.</p>
+      </div>
+
+      <div class="terminal-wrapper" data-reveal>
+        <div class="terminal-topbar">
+          <div class="terminal-dots">
+            <span class="t-dot t-red"></span>
+            <span class="t-dot t-yellow"></span>
+            <span class="t-dot t-green"></span>
+          </div>
+          <div class="terminal-title">srihari@iit-ai-dev ~ %</div>
+          <div class="terminal-hint">Type <kbd>help</kbd> to start</div>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <div class="term-line term-welcome">
+            <span class="term-prompt">▶</span>
+            <span class="term-text">Welcome to Sri Hari's dev console. Type <span class="term-cmd">help</span> for
+              available commands.</span>
+          </div>
+        </div>
+        <div class="terminal-input-row">
+          <span class="term-prompt-symbol">srihari@ai-dev:~$</span>
+          <input type="text" id="termInput" class="terminal-input" placeholder="type a command…" autocomplete="off"
+            spellcheck="false" />
+          <span class="term-cursor-blink">▋</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       RESEARCH RADAR — Papers & Domains Exploring
+  ══════════════════════════════════════════════════ -->
+  <section class="section research-section" id="research">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2 class="section-title">Currently <span class="gradient-text">Exploring</span></h2>
+        <p class="section-subtitle">AI research domains, papers, and tools I'm actively studying.</p>
+      </div>
+
+      <div class="research-grid" data-reveal>
+
+        <div class="research-card active-card">
+          <div class="rc-status-dot"></div>
+          <div class="rc-header">
+            <span class="rc-tag">🔬 Active Research</span>
+            <span class="rc-date">Feb 2026</span>
+          </div>
+          <h4 class="rc-title">Federated Learning for Agricultural AI</h4>
+          <p class="rc-desc">Studying FL techniques to train crop models across distributed farm nodes without
+            centralizing data — privacy-preserving ML at scale.</p>
+          <div class="rc-tags">
+            <span class="rc-pill">Federated Learning</span>
+            <span class="rc-pill">Privacy-ML</span>
+            <span class="rc-pill">CropScout Extension</span>
+          </div>
+          <div class="rc-progress-bar">
+            <div class="rc-progress-fill" style="width:65%"></div>
+          </div>
+          <span class="rc-progress-label">65% through</span>
+        </div>
+
+        <div class="research-card">
+          <div class="rc-header">
+            <span class="rc-tag">📄 Paper Study</span>
+            <span class="rc-date">Jan 2026</span>
+          </div>
+          <h4 class="rc-title">Attention Is All You Need (Transformer Paper)</h4>
+          <p class="rc-desc">Deep study of the original Transformer architecture — self-attention mechanisms, positional
+            encodings, and multi-head attention for sequence modelling.</p>
+          <div class="rc-tags">
+            <span class="rc-pill">Transformers</span>
+            <span class="rc-pill">NLP</span>
+            <span class="rc-pill">Attention</span>
+          </div>
+        </div>
+
+        <div class="research-card">
+          <div class="rc-header">
+            <span class="rc-tag">🧪 Experimenting</span>
+            <span class="rc-date">Feb 2026</span>
+          </div>
+          <h4 class="rc-title">YOLOv8 for Wildlife Detection</h4>
+          <p class="rc-desc">Fine-tuning YOLOv8n on custom wildlife footage datasets to enhance WildGuard AI's real-time
+            detection speed — targeting sub-30ms inference.</p>
+          <div class="rc-tags">
+            <span class="rc-pill">YOLOv8</span>
+            <span class="rc-pill">Computer Vision</span>
+            <span class="rc-pill">WildGuard</span>
+          </div>
+          <div class="rc-progress-bar">
+            <div class="rc-progress-fill" style="width:40%"></div>
+          </div>
+          <span class="rc-progress-label">40% through</span>
+        </div>
+
+        <div class="research-card">
+          <div class="rc-header">
+            <span class="rc-tag">📚 Reading</span>
+            <span class="rc-date">Feb 2026</span>
+          </div>
+          <h4 class="rc-title">Deep Learning Specialization (Coursera)</h4>
+          <p class="rc-desc">Working through Andrew Ng's curriculum — CNNs, RNNs, optimization theory, and
+            hyperparameter tuning. Building mathematical intuition behind every layer.</p>
+          <div class="rc-tags">
+            <span class="rc-pill">Deep Learning</span>
+            <span class="rc-pill">CNNs</span>
+            <span class="rc-pill">RNNs</span>
+          </div>
+          <div class="rc-progress-bar">
+            <div class="rc-progress-fill" style="width:80%"></div>
+          </div>
+          <span class="rc-progress-label">80% through</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       COMPETITIVE PROFILE — Coding + Hackathon Stats
+  ══════════════════════════════════════════════════ -->
+  <section class="section competitive-section" id="competitive">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <h2 class="section-title">Coding <span class="gradient-text">Arena</span></h2>
+        <p class="section-subtitle">Competitive programming, hackathons, and platform achievements.</p>
+      </div>
+
+      <div class="competitive-grid" data-reveal>
+
+        <div class="comp-card github-card">
+          <div class="comp-card-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path
+                d="M14 2C7.37 2 2 7.37 2 14c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.79 1.29 3.47.99.11-.77.42-1.29.76-1.59-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.65 1.65.24 2.87.12 3.17.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C22.57 23.8 26 19.31 26 14c0-6.63-5.37-12-12-12z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <div class="comp-card-content">
+            <div class="comp-platform">GitHub</div>
+            <div class="comp-stats-row">
+              <div class="comp-stat"><span class="comp-num" data-target="12">0</span><span
+                  class="comp-label">Repos</span></div>
+              <div class="comp-stat"><span class="comp-num" data-target="550">0</span><span
+                  class="comp-label">Commits</span></div>
+              <div class="comp-stat"><span class="comp-num" data-target="3">0</span><span
+                  class="comp-label">Languages</span></div>
+            </div>
+            <div class="comp-bar-row">
+              <span class="comp-lang-dot" style="background:#3572A5"></span> Python 72%
+              <span class="comp-lang-dot" style="background:#f0db4f;margin-left:10px"></span> JS 18%
+              <span class="comp-lang-dot" style="background:#e34c26;margin-left:10px"></span> HTML 10%
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-card leetcode-card">
+          <div class="comp-card-icon" style="color:#f89f1b">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="3" y="3" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5" />
+              <path d="M9 14h10M9 10h6M9 18h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="comp-card-content">
+            <div class="comp-platform">LeetCode / DSA</div>
+            <div class="comp-stats-row">
+              <div class="comp-stat"><span class="comp-num" data-target="80">0</span><span
+                  class="comp-label">Solved</span></div>
+              <div class="comp-stat easy-col"><span class="comp-num" data-target="45">0</span><span
+                  class="comp-label">Easy</span></div>
+              <div class="comp-stat medium-col"><span class="comp-num" data-target="30">0</span><span
+                  class="comp-label">Medium</span></div>
+              <div class="comp-stat hard-col"><span class="comp-num" data-target="5">0</span><span
+                  class="comp-label">Hard</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-card hackathon-card">
+          <div class="comp-card-icon" style="color:#34d399">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M14 3l2.9 8.9H26l-7.5 5.4 2.9 8.9L14 21l-7.4 5.2 2.9-8.9L2 11.9h9.1z" stroke="currentColor"
+                stroke-width="1.5" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="comp-card-content">
+            <div class="comp-platform">Hackathons & Events</div>
+            <div class="hackathon-list">
+              <div class="hack-item">
+                <span class="hack-badge won">Participant</span>
+                <span class="hack-name">Smart India Hackathon 2024</span>
+              </div>
+              <div class="hack-item">
+                <span class="hack-badge">Exploring</span>
+                <span class="hack-name">Google AI Hackathon 2026</span>
+              </div>
+              <div class="hack-item">
+                <span class="hack-badge">Active</span>
+                <span class="hack-name">IIT Bombay AI Cohort Projects</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-card currentbuild-card">
+          <div class="comp-card-icon" style="color:#a78bfa">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="5" fill="currentColor" opacity="0.3" />
+              <circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="14" cy="14" r="2" fill="currentColor" />
+              <path d="M14 4v4M14 20v4M4 14h4M20 14h4" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="comp-card-content">
+            <div class="comp-platform">Currently Building</div>
+            <div class="build-status">
+              <div class="build-item">
+                <span class="build-dot"></span>
+                <span>CropScout Pro v2 — adding CNN disease detector</span>
+              </div>
+              <div class="build-item">
+                <span class="build-dot"></span>
+                <span>WildGuard — YOLOv8 latency optimization</span>
+              </div>
+              <div class="build-item">
+                <span class="build-dot build-dot-dim"></span>
+                <span>Portfolio — adding SHAP explainability demos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <script src="script.js"></script>
+  <script src="premium.js"></script>
+  <script src="features.js"></script>
+  <script src="ui-controls.js"></script>
+  <script src="elite.js"></script>
+</body>
+
+</html>
