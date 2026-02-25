@@ -3183,26 +3183,6 @@ main, .container, .section { padding-bottom: 220px; }
   }
 }
 
-/* Nav Terminal button */
-.nav-terminal-btn {
-  margin-left: 8px;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(90deg, rgba(99,102,241,0.14), rgba(59,130,246,0.10));
-  border: 1px solid rgba(99,102,241,0.14);
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  position: relative;
-  z-index: 9150;
-}
-.nav-terminal-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(59,130,246,0.10); }
-.nav-terminal-btn svg { color: #fff; }
-
 /* Dev Terminal Panel */
 #devTerminalPanel {
   position: fixed;
