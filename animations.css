@@ -438,7 +438,7 @@
 }
 
 /* ══════════════════════════════════════════
-   14. MINDSET CARDS — TILT GLOW
+   14. MINDSET CARDS — TILT GLOW + ENHANCED
 ══════════════════════════════════════════ */
 .mindset-card {
     transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -450,6 +450,24 @@
     border-color: rgba(167, 139, 250, 0.4) !important;
     box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35),
         0 0 30px rgba(167, 139, 250, 0.08) !important;
+    transform: translateY(-8px) scale(1.02);
+}
+
+.mindset-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.mindset-card:hover::before {
+    opacity: 1;
 }
 
 .mindset-icon svg {
@@ -458,6 +476,311 @@
 
 .mindset-card:hover .mindset-icon svg {
     transform: scale(1.2) rotate(-5deg);
+}
+
+/* Mindset card floating animation */
+@keyframes mindsetFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.mindset-card {
+    animation: mindsetFloat 4s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+}
+
+.mindset-card:nth-child(1) { --delay: 0s; }
+.mindset-card:nth-child(2) { --delay: 0.5s; }
+.mindset-card:nth-child(3) { --delay: 1s; }
+.mindset-card:nth-child(4) { --delay: 1.5s; }
+
+.mindset-card:hover {
+    animation-play-state: paused;
+}
+
+/* ══════════════════════════════════════════
+   ENHANCED MINDSET PAGE - HR ATTRACTIVE
+══════════════════════════════════════════ */
+
+/* Card entrance from left/right */
+@keyframes cardSlideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-80px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes cardSlideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(80px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* Card hover with glow effect */
+.mindset-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.mindset-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+        rgba(167, 139, 250, 0.1) 0%, 
+        transparent 50%,
+        rgba(59, 130, 246, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.mindset-card:hover::after {
+    opacity: 1;
+}
+
+/* Icon bounce animation */
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-5px) scale(1.1); }
+}
+
+.mindset-card:hover .mindset-icon {
+    animation: iconBounce 0.6s ease-in-out;
+}
+
+/* Timeline dots glow pulse */
+@keyframes timelineGlow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.4),
+                    0 0 10px rgba(167, 139, 250, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(167, 139, 250, 0),
+                    0 0 20px rgba(167, 139, 250, 0.5);
+    }
+}
+
+.tl-dot {
+    animation: timelineGlow 2s ease-in-out infinite;
+}
+
+.timeline-item:nth-child(1) .tl-dot { animation-delay: 0s; }
+.timeline-item:nth-child(2) .tl-dot { animation-delay: 0.3s; }
+.timeline-item:nth-child(3) .tl-dot { animation-delay: 0.6s; }
+
+/* Profile card - enhanced hover */
+.about-profile-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-profile-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(167, 139, 250, 0.1) 60deg,
+        rgba(59, 130, 246, 0.1) 120deg,
+        transparent 180deg
+    );
+    animation: profileRotate 8s linear infinite;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.about-profile-card:hover::before {
+    opacity: 1;
+}
+
+@keyframes profileRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Profile tags float animation */
+@keyframes tagFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+.profile-tags .ptag {
+    animation: tagFloat 3s ease-in-out infinite;
+}
+
+.profile-tags .ptag:nth-child(1) { animation-delay: 0s; }
+.profile-tags .ptag:nth-child(2) { animation-delay: 0.5s; }
+.profile-tags .ptag:nth-child(3) { animation-delay: 1s; }
+
+/* Certification badge shimmer */
+@keyframes badgeShimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+.tl-badge {
+    background: linear-gradient(90deg, 
+        var(--badge-color, #a78bfa) 0%,
+        rgba(255,255,255,0.3) 50%,
+        var(--badge-color, #a78bfa) 100%);
+    background-size: 200% auto;
+    animation: badgeShimmer 3s linear infinite;
+}
+
+.tl-badge.iit { --badge-color: #f59e0b; }
+.tl-badge.ibm { --badge-color: #3b82f6; }
+.tl-badge.deloitte { --badge-color: #34d399; }
+
+/* Section title gradient animation */
+@keyframes gradientMove {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+.section-title .gradient-text {
+    background: linear-gradient(90deg, 
+        #a78bfa 0%, 
+        #60a5fa 25%, 
+        #34d399 50%,
+        #a78bfa 75%,
+        #60a5fa 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 4s ease-in-out infinite;
+}
+
+/* About section - cards entrance animation */
+.about-grid .mindset-cards {
+    animation: cardSlideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+
+.about-grid .about-right {
+    animation: cardSlideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+/* Mindset cards stagger animation */
+.mindset-card {
+    opacity: 0;
+    animation: none;
+}
+
+.mindset-card:nth-child(1) { animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; }
+.mindset-card:nth-child(2) { animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+.mindset-card:nth-child(3) { animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+.mindset-card:nth-child(4) { animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
+
+@keyframes cardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Timeline items stagger */
+.timeline-item {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.timeline-item:nth-child(1) { animation: timelineSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; }
+.timeline-item:nth-child(2) { animation: timelineSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; }
+.timeline-item:nth-child(3) { animation: timelineSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards; }
+
+@keyframes timelineSlide {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Unique HR Feature: Skill bars with fill animation */
+@keyframes skillBarFill {
+    from { width: 0; }
+}
+
+.skill-bar {
+    position: relative;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.skill-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #a78bfa, #60a5fa);
+    border-radius: 3px;
+    animation: skillBarFill 1.5s ease-out forwards;
+}
+
+/* Unique: Number counter animation */
+@keyframes countUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.count-animate {
+    animation: countUp 0.5s ease-out forwards;
+}
+
+/* Trigger animations when mindset-animated class is added */
+.mindset-animated .mindset-card:nth-child(1) { animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; }
+.mindset-animated .mindset-card:nth-child(2) { animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+.mindset-animated .mindset-card:nth-child(3) { animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+.mindset-animated .mindset-card:nth-child(4) { animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
+
+.mindset-animated .timeline-item:nth-child(1) { animation: timelineSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; }
+.mindset-animated .timeline-item:nth-child(2) { animation: timelineSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; }
+.mindset-animated .timeline-item:nth-child(3) { animation: timelineSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards; }
+
+.mindset-animated .about-profile-card { opacity: 1; }
+
+/* Enhanced gradient border effect */
+.mindset-card {
+    position: relative;
+    background: linear-gradient(var(--bg-color, #1e293b), var(--bg-color, #1e293b)) padding-box,
+                linear-gradient(135deg, rgba(167, 139, 250, 0.3), rgba(59, 130, 246, 0.3), rgba(52, 211, 153, 0.3)) border-box;
+    border: 1px solid transparent;
+}
+
+.mindset-card:hover {
+    background: linear-gradient(var(--bg-color, #1e293b), var(--bg-color, #1e293b)) padding-box,
+                linear-gradient(135deg, rgba(167, 139, 250, 0.6), rgba(59, 130, 246, 0.6), rgba(52, 211, 153, 0.6)) border-box;
 }
 
 /* ══════════════════════════════════════════
@@ -656,7 +979,7 @@
 }
 
 /* ══════════════════════════════════════════
-   24. PROFILE AVATAR — RING SPEED VARIATION
+   24. PROFILE AVATAR — RING SPEED VARIATION + ENHANCED
 ══════════════════════════════════════════ */
 .avatar-initials {
     transition: box-shadow 0.35s ease, transform 0.35s ease;
@@ -667,16 +990,128 @@
     transform: scale(1.08);
 }
 
+/* Profile avatar enhanced hover glow */
+.about-profile-card {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.4s ease;
+}
+
+.about-profile-card:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+/* Profile glow pulsing animation */
+.profile-glow {
+    animation: profileGlow 3s ease-in-out infinite;
+}
+
+@keyframes profileGlow {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+/* Avatar ring enhanced animations */
+.avatar-ring {
+    animation: ringRotate 8s linear infinite;
+}
+
 .ring-1 {
     animation-timing-function: linear;
+    animation-duration: 6s;
 }
 
 .ring-2 {
     animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    animation-duration: 8s;
+    animation-direction: reverse;
 }
 
 .ring-3 {
     animation-timing-function: ease-in-out;
+    animation-duration: 10s;
+}
+
+@keyframes ringRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Profile card floating animation */
+.about-profile-card {
+    animation: profileCardFloat 6s ease-in-out infinite;
+}
+
+@keyframes profileCardFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.about-profile-card:hover {
+    animation-play-state: paused;
+}
+
+/* Gradient shine effect on profile card */
+.about-profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.05), 
+        transparent);
+    transform: skewX(-20deg);
+    animation: profileShine 6s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.about-profile-card:hover::before {
+    left: 100%;
+    transition: left 0.6s ease;
+}
+
+@keyframes profileShine {
+    0%, 100% {
+        left: -100%;
+    }
+    50% {
+        left: 200%;
+    }
+}
+
+/* Avatar initials pulse on hover */
+.avatar-initials {
+    animation: avatarPulse 2s ease-in-out infinite;
+}
+
+.about-profile-card:hover .avatar-initials {
+    animation-play-state: paused;
+}
+
+@keyframes avatarPulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(167, 139, 250, 0.5);
+    }
 }
 
 /* ══════════════════════════════════════════

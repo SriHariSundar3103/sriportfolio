@@ -19,6 +19,15 @@
                 setTimeout(() => {
                     const orb = document.getElementById('aiOrb');
                     if (orb) orb.click();
+                    
+                    // Auto-send a welcome message asking about the portfolio
+                    setTimeout(() => {
+                        const chatInput = document.getElementById('chatInput');
+                        if (chatInput && typeof sendMessage === 'function') {
+                            chatInput.value = "Hi! Tell me about your portfolio and projects";
+                            sendMessage();
+                        }
+                    }, 800);
                 }, 600);
             }
             robotFab.classList.toggle('active');
@@ -99,6 +108,13 @@
         const light = document.getElementById('spLight');
         if (dark) dark.classList.toggle('active', mode === 'dark');
         if (light) light.classList.toggle('active', mode === 'light');
+        
+        // Also update navbar settings buttons
+        const nspDark = document.getElementById('nspDark');
+        const nspLight = document.getElementById('nspLight');
+        if (nspDark) nspDark.classList.toggle('active', mode === 'dark');
+        if (nspLight) nspLight.classList.toggle('active', mode === 'light');
+        
         localStorage.setItem('portfolio-theme', mode);
     };
 

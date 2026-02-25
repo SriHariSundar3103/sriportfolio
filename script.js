@@ -311,6 +311,11 @@ function initHeroAnimations() {
         if (e.target.id === 'impact' || e.target.closest('#impact')) {
           startCounters();
         }
+        // About section triggers: metrics and skill bar animations
+        if (e.target.id === 'about' || e.target.closest('#about')) {
+          animateAboutMetrics();
+          animateSkillBars();
+        }
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
@@ -372,6 +377,40 @@ function animateToolsCount() {
     else el.textContent = '550+';
   }
   requestAnimationFrame(step);
+}
+
+// Animate metric badges in About section
+let aboutMetricsStarted = false;
+function animateAboutMetrics() {
+  if (aboutMetricsStarted) return;
+  aboutMetricsStarted = true;
+  document.querySelectorAll('.metric').forEach((m, idx) => {
+    const target = parseInt(m.getAttribute('data-target') || '0', 10);
+    const el = m.querySelector('.metric-value');
+    if (!el) return;
+    const start = performance.now();
+    const dur = 900 + idx * 120;
+    function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+// Animate skill bars by reading data-progress on each .skill-fill
+let skillBarsStarted = false;
+function animateSkillBars() {
+  if (skillBarsStarted) return;
+  skillBarsStarted = true;
+  const fills = document.querySelectorAll('.skill-fill');
+  fills.forEach((f, i) => {
+    const p = f.getAttribute('data-progress') || '80%';
+    setTimeout(() => { f.style.width = p; }, i * 150);
+  });
 }
 
 /* ── RADAR CHART ── */
@@ -1028,3 +1067,67 @@ document.querySelectorAll('.skill-orb').forEach(orb => {
   window.addEventListener('scroll', updateNav, { passive: true });
 })();
 
+/* ── NAVBAR SETTINGS PANEL ── */
+window.toggleNavSettings = function() {
+  const panel = document.getElementById('navSettingsPanel');
+  const btn = document.getElementById('navSettingsBtn');
+  if (panel) {
+    const isOpen = panel.classList.contains('open');
+    if (isOpen) {
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden', 'true');
+    } else {
+      // Close other panels
+      const robotFab = document.getElementById('robotFab');
+      if (robotFab) robotFab.classList.remove('active');
+      
+      panel.classList.add('open');
+      panel.setAttribute('aria-hidden', 'false');
+    }
+  }
+};
+
+// Volume slider
+(function initVolume() {
+  const slider = document.getElementById('volumeSlider');
+  const valueDisplay = document.getElementById('volumeValue');
+  if (slider && valueDisplay) {
+    slider.addEventListener('input', (e) => {
+      valueDisplay.textContent = e.target.value;
+      localStorage.setItem('portfolio-volume', e.target.value);
+    });
+    const saved = localStorage.getItem('portfolio-volume');
+    if (saved) {
+      slider.value = saved;
+      valueDisplay.textContent = saved;
+    }
+  }
+})();
+
+// Initialize theme buttons
+(function initThemeButtons() {
+  const darkBtn = document.getElementById('nspDark');
+  const lightBtn = document.getElementById('nspLight');
+  const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+  
+  if (savedTheme === 'dark') {
+    if (darkBtn) darkBtn.classList.add('active');
+    if (lightBtn) lightBtn.classList.remove('active');
+  } else {
+    if (darkBtn) darkBtn.classList.remove('active');
+    if (lightBtn) lightBtn.classList.add('active');
+  }
+})();
+
+// Close settings panel on outside click
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('navSettingsPanel');
+  const btn = document.getElementById('navSettingsBtn');
+  if (panel?.classList.contains('open') && 
+      !panel.contains(e.target) && 
+      e.target !== btn &&
+      !btn?.contains(e.target)) {
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+});

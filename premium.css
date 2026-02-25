@@ -1248,3 +1248,123 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+/* ──────────────────────────────────────────
+   PORTFOLIO EXPLAINER ROBOT BUTTON
+────────────────────────────────────────── */
+.portfolio-explainer-btn {
+    position: relative;
+}
+
+.explainer-btn-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.portfolio-explainer-btn .robot-icon {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.portfolio-explainer-btn:hover .robot-icon {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.explainer-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: linear-gradient(135deg, #a78bfa, #3b82f6);
+    color: white;
+    font-size: 0.55em;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2px 5px;
+    border-radius: 6px;
+    min-width: 18px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(167, 139, 250, 0.4);
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(167, 139, 250, 0.4);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 2px 12px rgba(167, 139, 250, 0.6);
+    }
+}
+
+.portfolio-explainer-btn:hover {
+    border-color: rgba(167, 139, 250, 0.6) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(167, 139, 250, 0.2) !important;
+}
+
+.portfolio-explainer-btn:hover .explainer-badge {
+    animation: none;
+    transform: scale(1.15);
+}
+
+.robot-eye {
+    animation: eyeBlink 4s ease-in-out infinite;
+}
+
+@keyframes eyeBlink {
+    0%, 45%, 55%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* Hero Robot Logo */
+.hero-robot-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.hero-robot-logo .robot-logo-icon {
+    color: #a78bfa;
+    filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.5));
+    animation: heroRobotFloat 3s ease-in-out infinite;
+}
+
+@keyframes heroRobotFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.hero-robot-logo .robot-logo-eye {
+    animation: heroEyeBlink 4s ease-in-out infinite;
+}
+
+@keyframes heroEyeBlink {
+    0%, 45%, 55%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* Make hero-name display inline with robot */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-robot-logo {
+    order: -1;
+    margin-bottom: 20px;
+}

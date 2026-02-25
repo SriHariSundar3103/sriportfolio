@@ -3,6 +3,23 @@
    premium.js
    ═══════════════════════════════════════════════════ */
 
+/* ─── MINDSET SECTION ANIMATIONS ON SCROLL ─── */
+(function initMindsetAnimations() {
+    const aboutSection = document.getElementById('about');
+    if (!aboutSection) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                aboutSection.classList.add('mindset-animated');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    observer.observe(aboutSection);
+})();
+
 /* ─── DARK / LIGHT MODE TOGGLE ─── */
 (function initThemeToggle() {
     const toggle = document.getElementById('themeToggle');

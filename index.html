@@ -28,18 +28,26 @@
 
   <!-- ═══════ FLOATING ACTION CLUSTER (bottom-right, no overlap) ═════ -->
 
-  <!-- Robot FAB — opens chatbot -->
-  <button id="robotFab" class="fab-cluster-btn fab-robot" title="Chat with Sri Hari AI" aria-label="Open AI Chat">
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-      <rect x="5" y="8" width="16" height="12" rx="3" stroke="currentColor" stroke-width="1.6" />
-      <rect x="9" y="2" width="8" height="6" rx="2" stroke="currentColor" stroke-width="1.4" />
-      <line x1="13" y1="8" x2="13" y2="6" stroke="currentColor" stroke-width="1.4" />
-      <circle cx="9.5" cy="14" r="1.8" fill="currentColor" />
-      <circle cx="16.5" cy="14" r="1.8" fill="currentColor" />
-      <path d="M9 18.5h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-      <line x1="2" y1="13" x2="5" y2="13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-      <line x1="21" y1="13" x2="24" y2="13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-    </svg>
+  <!-- Robot FAB — Portfolio Explainer Chatbot -->
+  <button id="robotFab" class="fab-cluster-btn fab-robot portfolio-explainer-btn" title="Learn about my portfolio" aria-label="Open Portfolio Explainer">
+    <div class="explainer-btn-inner">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="robot-icon">
+        <!-- Robot Head -->
+        <rect x="6" y="4" width="16" height="12" rx="3" stroke="currentColor" stroke-width="1.5" />
+        <!-- Eyes -->
+        <circle cx="10.5" cy="10" r="2" fill="currentColor" class="robot-eye" />
+        <circle cx="17.5" cy="10" r="2" fill="currentColor" class="robot-eye" />
+        <!-- Antenna -->
+        <line x1="14" y1="4" x2="14" y2="1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        <circle cx="14" cy="1" r="1.5" fill="currentColor" />
+        <!-- Mouth -->
+        <path d="M10 14h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        <!-- Side antennas -->
+        <line x1="4" y1="10" x2="6" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        <line x1="22" y1="10" x2="24" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+      <span class="explainer-badge">AI</span>
+    </div>
     <span class="fab-robot-pulse"></span>
   </button>
 
@@ -80,10 +88,69 @@
       </div>
     </div>
     <div class="sp-section">
+      <div class="sp-label">Hiring Perspective Mode</div>
+      <div class="sp-hiring-toggle">
+        <label class="toggle-switch">
+          <input type="checkbox" id="hiringPerspectiveToggle" onchange="toggleHiringMode()" />
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">AI Role Analyzer</span>
+        </label>
+        <p class="sp-hiring-desc">Enable to get role-specific AI domain analysis</p>
+      </div>
+    </div>
+    <div class="sp-section">
       <div class="sp-label">Quick Links</div>
       <a href="mailto:sriharisundar.ai@gmail.com" class="sp-link">✉ Email Me</a>
       <a href="https://github.com/sriharisundar-ai" target="_blank" class="sp-link">⌥ GitHub</a>
       <a href="https://linkedin.com/in/sriharisundar" target="_blank" class="sp-link">in LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- Role Input Modal -->
+  <div id="roleInputModal" class="role-modal" aria-hidden="true">
+    <div class="role-modal-overlay" onclick="closeRoleModal()"></div>
+    <div class="role-modal-content">
+      <div class="role-modal-header">
+        <h2>🎯 Job Role Analyzer</h2>
+        <button class="role-modal-close" onclick="closeRoleModal()">✕</button>
+      </div>
+      <div class="role-modal-body">
+        <p class="role-modal-desc">Enter the AI/ML role you're interested in exploring</p>
+        <div class="role-input-group">
+          <input type="text" id="roleInput" class="role-input" placeholder="e.g. ML Engineer, AI Research Scientist, Data Scientist, LLM Engineer..." />
+          <button class="role-submit-btn" onclick="submitRole()">Analyze</button>
+        </div>
+        <div class="role-suggestions">
+          <p class="role-suggestions-label">Popular roles:</p>
+          <div class="role-suggestion-tags">
+            <button class="role-tag" onclick="selectRole('ML Engineer')">ML Engineer</button>
+            <button class="role-tag" onclick="selectRole('AI Research Scientist')">AI Research Scientist</button>
+            <button class="role-tag" onclick="selectRole('Data Scientist')">Data Scientist</button>
+            <button class="role-tag" onclick="selectRole('LLM Engineer')">LLM Engineer</button>
+            <button class="role-tag" onclick="selectRole('AI Product Manager')">AI Product Manager</button>
+            <button class="role-tag" onclick="selectRole('Computer Vision Engineer')">CV Engineer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Analysis Chatbot Panel -->
+  <div id="aiAnalysisPanel" class="ai-analysis-panel" aria-hidden="true">
+    <div class="ai-analysis-header">
+      <div class="ai-analysis-title">
+        <span class="ai-icon">🤖</span>
+        <span>Role Fit Analysis</span>
+      </div>
+      <button class="ai-analysis-close" onclick="closeAiAnalysis()">✕</button>
+    </div>
+    <div class="ai-analysis-content">
+      <div class="ai-chat-container">
+        <div class="ai-chat-messages" id="aiChatMessages"></div>
+      </div>
+      <div class="ai-analysis-footer">
+        <button class="btn-primary" onclick="closeAiAnalysis()">Close Analysis</button>
+      </div>
     </div>
   </div>
 
@@ -176,6 +243,39 @@
     <button class="nav-cta" id="navCta" onclick="document.getElementById('ai-lab').scrollIntoView({behavior:'smooth'})">
       <span class="cta-pulse"></span>Chat with AI
     </button>
+    <!-- Settings icon button (theme + volume) -->
+    <button id="navSettingsBtn" class="nav-settings-btn" aria-label="Settings" title="Settings" onclick="toggleNavSettings()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" />
+        <path d="M12 2v2M12 20v2M4.22 4.22l1.41 1.41M17.76 18.36l1.41 1.41M2 12h2M20 12h2M4.22 19.78l1.41-1.41M17.76 5.64l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      </svg>
+    </button>
+    <!-- Settings dropdown panel -->
+    <div id="navSettingsPanel" class="nav-settings-panel" aria-hidden="true">
+      <div class="nsp-header">
+        <span class="nsp-title">Settings</span>
+      </div>
+      <div class="nsp-section">
+        <div class="nsp-label">Theme</div>
+        <div class="nsp-theme-row">
+          <button class="nsp-theme-btn" id="nspDark" onclick="setTheme('dark')">Dark</button>
+          <button class="nsp-theme-btn active" id="nspLight" onclick="setTheme('light')">Light</button>
+        </div>
+      </div>
+      <div class="nsp-section">
+        <div class="nsp-label">Volume</div>
+        <input type="range" min="0" max="100" value="70" class="nsp-volume-slider" id="volumeSlider" aria-label="Volume control" />
+        <div class="volume-display"><span id="volumeValue">70</span>%</div>
+      </div>
+      <div class="nsp-section">
+        <div class="nsp-label">Hiring Perspective Mode</div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="hiringPerspectiveToggle2" onchange="toggleHiringMode()" />
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">AI Role Analyzer</span>
+        </label>
+      </div>
+    </div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -197,11 +297,9 @@
         <span>Available for Research Collaboration</span>
       </div>
 
-      <div class="hero-profile">
-        <img src="profile.jpeg" alt="Sri Hari Sundar R" class="hero-profile-img" />
-      </div>
+      <!-- Profile Picture in Hero -->
       <h1 class="hero-name">
-        <span class="name-line gradient-text" id="nameLine1">Sri Hari Sundar</span>
+        <span class="name-line" id="nameLine1">Sri Hari Sundar</span>
       </h1>
 
       <div class="hero-roles">
@@ -314,6 +412,55 @@
                 <span class="ptag">🎓 B.E Computer Science</span>
                 <span class="ptag">🏛 GCE Salem</span>
                 <span class="ptag">📊 CGPA: 7.5</span>
+              </div>
+              <!-- Quick metrics & CTAs -->
+              <div class="metric-badges">
+                <div class="metric" data-target="2">
+                  <div class="metric-value">0</div>
+                  <div class="metric-label">Years Experience</div>
+                </div>
+                <div class="metric" data-target="10">
+                  <div class="metric-value">0</div>
+                  <div class="metric-label">Projects</div>
+                </div>
+                <div class="metric" data-target="3">
+                  <div class="metric-value">0</div>
+                  <div class="metric-label">Deployments</div>
+                </div>
+              </div>
+
+              <div class="about-ctas">
+                <button class="btn-primary hire-cta" onclick="window.location='#lets-build'">Hire Me</button>
+                <a class="btn-secondary" href="resume.pdf" download>Download CV</a>
+              </div>
+              <!-- Small robot contact button (opens chatbot) -->
+              <button class="robot-contact" aria-label="Chat with AI" title="Chat with AI" onclick="document.getElementById('robotFab')?.click()">
+                <svg width="18" height="18" viewBox="0 0 28 28" fill="none" class="robot-contact-icon">
+                  <rect x="6" y="4" width="16" height="12" rx="3" stroke="currentColor" stroke-width="1.2" />
+                  <circle cx="10.5" cy="10" r="1.6" fill="currentColor" />
+                  <circle cx="17.5" cy="10" r="1.6" fill="currentColor" />
+                  <line x1="14" y1="4" x2="14" y2="1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                </svg>
+                <span class="robot-contact-text">Chat</span>
+              </button>
+              <!-- Skill bars to showcase strengths -->
+              <div class="skill-list" aria-hidden="false">
+                <div class="skill-row">
+                  <div class="skill-label">ML Engineering</div>
+                  <div class="skill-bar"><div class="skill-fill" data-progress="90%"></div></div>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-label">Model Deployment</div>
+                  <div class="skill-bar"><div class="skill-fill" data-progress="85%"></div></div>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-label">Data Pipelines</div>
+                  <div class="skill-bar"><div class="skill-fill" data-progress="82%"></div></div>
+                </div>
+                <div class="skill-row">
+                  <div class="skill-label">Research</div>
+                  <div class="skill-bar"><div class="skill-fill" data-progress="88%"></div></div>
+                </div>
               </div>
             </div>
           </div>
@@ -1871,6 +2018,7 @@
   <script src="features.js"></script>
   <script src="ui-controls.js"></script>
   <script src="elite.js"></script>
+  <script src="hiring-perspective.js"></script>
 </body>
 
 </html>
