@@ -7,17 +7,43 @@
   padding: 0;
 }
 
+/* ══════════════════════════════════════════════════════════
+   ELITE AI PROFESSIONAL THEME
+   Color System: Professional • Futuristic • AI-Focused • Premium
+   ══════════════════════════════════════════════════════════ */
 :root {
-  --bg: #05070f;
-  --bg2: #080c18;
-  --blue: #3b82f6;
+  /* Primary Background Layers */
+  --bg: #0F172A;
+  --bg2: #1E293B;
+  --bg-card: #1E293B;
+  
+  /* Accent Colors */
+  --blue: #3B82F6;
+  --cyan: #22D3EE;
   --violet: #a78bfa;
   --green: #34d399;
   --amber: #f59e0b;
-  --text: #e2e8f0;
-  --text-muted: #64748b;
-  --glass: rgba(255, 255, 255, 0.04);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  
+  /* CTA Colors */
+  --cta: #2563EB;
+  --cta-hover: #1D4ED8;
+  
+  /* Text Colors */
+  --text: #F8FAFC;
+  --text-muted: #CBD5E1;
+  --text-secondary: #94A3B8;
+  
+  /* Glass & Borders */
+  --glass: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(59, 130, 246, 0.15);
+  --border-accent: rgba(59, 130, 246, 0.2);
+  
+  /* Gradients */
+  --grad-primary: linear-gradient(135deg, #2563EB, #3B82F6);
+  --grad-hero: linear-gradient(135deg, #0F172A, #1E293B);
+  --grad-glow: radial-gradient(circle, rgba(34, 211, 238, 0.15), transparent);
+  
+  /* Typography */
   --font-main: 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -39,9 +65,13 @@ body {
   color: #fff;
 }
 
+/* ══════════════════════════════════════════════════════════
+   ELITE AI PROFESSIONAL THEME - SCROLLBAR & ENHANCEMENTS
+   ══════════════════════════════════════════════════════════ */
+
 /* ─── SCROLLBAR ─── */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,8 +79,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(var(--violet), var(--blue));
-  border-radius: 4px;
+  background: linear-gradient(180deg, var(--blue), var(--cyan));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--cyan), var(--blue));
 }
 
 /* ─── PROFESSIONAL CURSOR ─── */
@@ -254,15 +288,17 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 16px 48px;
-  background: rgba(5, 7, 15, 0.7);
+  background: rgba(15, 23, 42, 0.8);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid transparent;
   transition: all 0.3s ease;
 }
 
 .navbar.scrolled {
+  background: rgba(15, 23, 42, 0.95);
   border-bottom-color: var(--glass-border);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.05);
 }
 
 .nav-logo {
@@ -758,12 +794,16 @@ body {
   justify-content: center;
 }
 
+/* ══════════════════════════════════════════════════════════
+   ELITE AI PROFESSIONAL THEME - CTA BUTTON ENHANCEMENTS
+   ══════════════════════════════════════════════════════════ */
+
 .btn-primary {
   position: relative;
   padding: 14px 32px;
-  border-radius: 12px;
+  border-radius: 16px;
   border: none;
-  background: linear-gradient(135deg, var(--blue), var(--violet));
+  background: linear-gradient(135deg, #2563EB, #3B82F6);
   color: #fff;
   font-family: var(--font-main);
   font-weight: 600;
@@ -773,12 +813,12 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5), 0 0 20px rgba(34, 211, 238, 0.3);
 }
 
 .btn-bg {
