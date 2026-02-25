@@ -9,6 +9,13 @@ console.log('🚀 Loading Hiring Perspective Mode...');
 // Setup initialization
 function initHiringModeSystem() {
   console.log('📍 Initializing Hiring Mode System...');
+  // Create a small on-page debug overlay so the user can copy logs
+  // without opening DevTools. Visible only during development.
+  try {
+    createDebugOverlay();
+  } catch (e) {
+    console.warn('Could not create debug overlay', e);
+  }
   
   try {
     // Get toggle elements
@@ -49,12 +56,101 @@ function initHiringModeSystem() {
     
     if (modal && panel && input && messages) {
       console.log('✅ All required elements found! System ready.');
+      logDebug('System ready — debug overlay active');
     } else {
       console.error('❌ Some required elements are missing!');
     }
     
+    // Bind submit button and enter key to submitRole to ensure clicks work
+    const submitBtn = document.querySelector('.role-submit-btn');
+    if (submitBtn) {
+      submitBtn.removeEventListener('click', submitRole);
+      submitBtn.addEventListener('click', (e) => { e.preventDefault(); submitRole(); });
+      console.log('✓ Bound submit button');
+      logDebug('Bound submit button');
+    }
+    if (input) {
+      input.removeEventListener('keydown', handleKeyboardEvents);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); submitRole(); }
+      });
+      console.log('✓ Bound Enter key on input');
+      logDebug('Bound Enter key on input');
+    }
+    
+    // Ensure close buttons and overlay are bound (to work around inline onclick issues)
+    const modalClose = document.querySelector('.role-modal-close');
+    if (modalClose) {
+      modalClose.removeEventListener('click', closeRoleModal);
+      modalClose.addEventListener('click', (e) => { e.preventDefault(); closeRoleModal(); });
+      console.log('✓ Bound modal close button');
+      logDebug('Bound modal close button');
+    }
+    const modalOverlay = document.querySelector('.role-modal-overlay');
+    if (modalOverlay) {
+      modalOverlay.removeEventListener('click', closeRoleModal);
+      modalOverlay.addEventListener('click', (e) => { e.preventDefault(); closeRoleModal(); });
+      console.log('✓ Bound modal overlay');
+      logDebug('Bound modal overlay');
+    }
+    const aiClose = document.querySelector('.ai-analysis-close');
+    if (aiClose) {
+      aiClose.removeEventListener('click', closeAiAnalysis);
+      aiClose.addEventListener('click', (e) => { e.preventDefault(); closeAiAnalysis(); });
+      console.log('✓ Bound AI panel close button');
+      logDebug('Bound AI panel close button');
+    }
+    
+    // Bind dev terminal run button
+    const dtRunBtn = document.getElementById('dtRunBtn');
+    if (dtRunBtn) {
+      dtRunBtn.removeEventListener('click', runDevCommand);
+      dtRunBtn.addEventListener('click', runDevCommand);
+      console.log('✓ Bound dev terminal run button');
+      logDebug('Bound dev terminal run button');
+    }
+    
+    // Bind Enter key on dev terminal input
+    const dtInput = document.getElementById('devTerminalInput');
+    if (dtInput) {
+      dtInput.removeEventListener('keydown', handleDevTerminalKeyDown);
+      dtInput.addEventListener('keydown', handleDevTerminalKeyDown);
+      console.log('✓ Bound dev terminal input');
+      logDebug('Bound dev terminal input');
+    }
+    
   } catch (error) {
     console.error('Error initializing:', error);
+  }
+}
+
+// Debug overlay helpers (development only)
+function createDebugOverlay() {
+  if (document.getElementById('hpDebugOverlay')) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'hpDebugOverlay';
+  overlay.innerHTML = `
+    <div class="hp-debug-header">Hiring Debug <button id="hpDebugClear" title="Clear">Clear</button></div>
+    <div id="hpDebugLines" class="hp-debug-lines"></div>
+  `;
+  document.body.appendChild(overlay);
+  const clearBtn = document.getElementById('hpDebugClear');
+  if (clearBtn) clearBtn.addEventListener('click', () => { const lines = document.getElementById('hpDebugLines'); if (lines) lines.innerHTML=''; });
+}
+
+function logDebug(msg) {
+  try {
+    const container = document.getElementById('hpDebugLines');
+    if (!container) return;
+    const line = document.createElement('div');
+    line.className = 'hp-debug-line';
+    const time = new Date().toLocaleTimeString();
+    line.textContent = `[${time}] ${msg}`;
+    container.appendChild(line);
+    // keep last 40 lines
+    while (container.children.length > 40) container.removeChild(container.firstChild);
+  } catch (e) {
+    // swallow
   }
 }
 
@@ -330,6 +426,8 @@ function openRoleModal() {
     
     // Reset and add active class
     modal.classList.add('active');
+    // Ensure modal is exposed to assistive tech while open
+    modal.removeAttribute('inert');
     modal.setAttribute('aria-hidden', 'false');
     modal.style.display = 'flex';
     modal.style.opacity = '1';
@@ -351,8 +449,44 @@ function openRoleModal() {
 function closeRoleModal() {
   try {
     const modal = document.getElementById('roleInputModal');
+    if (!modal) return;
+
+    // If any element inside the modal currently has focus, move focus
+    // to a sensible visible control before hiding so assistive tech
+    // users are not left focusing an aria-hidden element. Also blur
+    // any focused descendant to prevent blocked aria-hidden.
+    try {
+      const active = document.activeElement;
+      if (active && modal.contains(active)) {
+        try { active.blur(); } catch (_) {}
+        const fallback = document.getElementById('hiringPerspectiveToggle') || document.getElementById('hiringPerspectiveToggle2');
+        if (fallback && typeof fallback.focus === 'function') {
+          try { fallback.focus(); } catch (_) {}
+        } else {
+          // Make body temporarily focusable and move focus there
+          const body = document.body;
+          const prevTab = body.getAttribute('tabindex');
+          body.setAttribute('tabindex', '-1');
+          try { body.focus(); } catch (_) {}
+          if (prevTab === null) body.removeAttribute('tabindex');
+          else body.setAttribute('tabindex', prevTab);
+        }
+      }
+    } catch (fErr) {
+      console.warn('Focus move failed while closing modal:', fErr);
+    }
+
     modal.classList.remove('active');
-    modal.setAttribute('aria-hidden', 'true');
+    // Ensure any focused element is blurred before hiding to avoid aria-hidden focus issues
+    try { if (document.activeElement) document.activeElement.blur(); } catch (_) {}
+    // Mark inert and hide shortly after to give blur/DOM a chance to take effect
+    setTimeout(() => {
+      try { modal.setAttribute('aria-hidden', 'true'); modal.setAttribute('inert', ''); } catch(e) { modal.setAttribute('aria-hidden', 'true'); }
+      // clear any inline styles set during open
+      modal.style.display = '';
+      modal.style.opacity = '';
+      modal.style.animation = '';
+    }, 50);
     const toggle1 = document.getElementById('hiringPerspectiveToggle');
     const toggle2 = document.getElementById('hiringPerspectiveToggle2');
     if (toggle1) toggle1.checked = false;
@@ -374,7 +508,8 @@ function selectRole(role) {
 // Submit role for analysis
 function submitRole() {
   try {
-    const roleInput = document.getElementById('roleInput').value.trim();
+    const roleInputEl = document.getElementById('roleInput');
+    const roleInput = roleInputEl ? roleInputEl.value.trim() : '';
     
     if (!roleInput) {
       alert('Please enter a role to analyze');
@@ -402,15 +537,32 @@ function submitRole() {
       }
     }
 
-    if (matchedRole) {
+    console.log('submitRole: roleInput="' + roleInput + '"; matchedRole=', matchedRole);
+    if (matchedRole && roleAnalysisDatabase[matchedRole]) {
       currentRole = matchedRole;
-      closeRoleModal();
-      showAiAnalysis(matchedRole);
+      addAiMessage(`You asked for: ${matchedRole}`, true);
+      try {
+        showAiAnalysis(matchedRole);
+      } catch (err) {
+        console.error('Error showing analysis for matched role:', err);
+        addAiMessage('⚠️ Analysis failed. Check console for details.');
+        return;
+      }
+      // close modal after analysis has begun — give more time so the
+      // analysis panel can initialize and the first messages render.
+      setTimeout(() => closeRoleModal(), 1400);
     } else {
-      // Show generic analysis for unknown role
+      // Fallback to generic analysis when no precise match
       currentRole = roleInput;
-      closeRoleModal();
-      showGenericAnalysis(roleInput);
+      addAiMessage(`You asked for: ${roleInput}`, true);
+      try {
+        showGenericAnalysis(roleInput);
+      } catch (err) {
+        console.error('Error showing generic analysis:', err);
+        addAiMessage('⚠️ Analysis failed. Check console for details.');
+        return;
+      }
+      setTimeout(() => closeRoleModal(), 1400);
     }
   } catch (error) {
     console.error('Error in submitRole:', error);
@@ -418,14 +570,38 @@ function submitRole() {
   }
 }
 
+// Global error catcher to surface runtime errors in the chat UI
+window.addEventListener('error', function (event) {
+  try {
+    console.error('Global error captured:', event.error || event.message);
+    addAiMessage('⚠️ An unexpected error occurred. See console for details.');
+  } catch (e) {
+    console.error('Error in global error handler:', e);
+  }
+});
+
 // Show AI Analysis Panel with enhanced analysis
 function showAiAnalysis(role) {
   try {
+    console.log('showAiAnalysis called for role:', role);
     const analysis = roleAnalysisDatabase[role];
     const panel = document.getElementById('aiAnalysisPanel');
-    
+    if (!panel) { console.error('AI panel element not found'); return; }
+    // ensure panel is visible immediately
+    panel.style.display = 'flex';
+    panel.style.opacity = '1';
+    panel.style.transform = 'translateX(0)';
     panel.classList.add('active');
+    // Ensure panel is interactive for assistive tech when visible
+    panel.removeAttribute('inert');
     panel.setAttribute('aria-hidden', 'false');
+
+    if (!analysis) {
+      console.warn('No analysis found for role:', role);
+      addAiMessage(`⚠️ No specialized analysis available for **${role}**. Showing generic guidance...`);
+      showGenericAnalysis(role);
+      return;
+    }
 
     // Clear previous messages
     const messagesContainer = document.getElementById('aiChatMessages');
@@ -441,6 +617,46 @@ function showAiAnalysis(role) {
     // Greeting
     addAiMessage(`👋 Analyzing your profile for **${role}** role...`);
     timeline += 600;
+
+    // Render & animate fit gauge
+    try {
+      const gauge = document.getElementById('fitGauge');
+      if (gauge) {
+        gauge.setAttribute('aria-hidden', 'false');
+        const pct = analysis.fitScore;
+        const r = 30;
+        const c = Math.PI * (r * 2);
+        const dash = c;
+        const offset = c * (1 - pct / 100);
+        gauge.innerHTML = `
+          <svg viewBox="0 0 72 72" role="img" aria-hidden="false">
+            <circle class="gauge-bg" cx="36" cy="36" r="${r}" />
+            <circle class="gauge-fg" cx="36" cy="36" r="${r}" stroke-dasharray="${dash}" stroke-dashoffset="${dash}" />
+          </svg>
+          <div class="gauge-label"><span id="gaugePercent" class="gauge-percent">0%</span><div class="gauge-sub">Fit</div></div>
+        `;
+        // animate stroke
+        const fg = gauge.querySelector('.gauge-fg');
+        if (fg) {
+          // allow layout
+          setTimeout(() => {
+            fg.style.transition = 'stroke-dashoffset 1s cubic-bezier(0.22,1,0.36,1)';
+            fg.style.strokeDashoffset = offset;
+          }, 80);
+        }
+        // animate percent number
+        const percentNode = document.getElementById('gaugePercent');
+        if (percentNode) {
+          let v = 0;
+          const step = Math.max(1, Math.floor(pct / 30));
+          const intId = setInterval(() => {
+            v += step;
+            if (v >= pct) { v = pct; clearInterval(intId); }
+            percentNode.textContent = v + '%';
+          }, 25);
+        }
+      }
+    } catch (gErr) { console.warn('Gauge error', gErr); }
 
     // Fit Score with Eligibility
     setTimeout(() => {
@@ -501,7 +717,10 @@ function showAiAnalysis(role) {
         `You have **GOOD POTENTIAL** for ${role} roles with some growth areas.` :
         `You have **FOUNDATIONAL SKILLS** for ${role} roles. Focus on the recommended areas.`;
       
-      addAiMessage(`🚀 **FINAL VERDICT:**\n\n${verdict}\n\n📧 Good luck with your ${role} journey!`);
+      const finalMsg = `🚀 **FINAL VERDICT:**\n\n${verdict}\n\n📧 Good luck with your ${role} journey!`;
+      addAiMessage(finalMsg);
+      // Also show a lightweight popup in the hero section summarizing the verdict
+      try { showHeroPopup(verdict); } catch (e) { console.warn('Hero popup failed', e); }
       scroll_to_bottom();
     }, timeline);
     
@@ -513,7 +732,12 @@ function showAiAnalysis(role) {
 
 // Show generic analysis for unknown roles
 function showGenericAnalysis(role) {
+  console.log('showGenericAnalysis called for role:', role);
   const panel = document.getElementById('aiAnalysisPanel');
+  if (!panel) { console.error('AI panel element not found'); return; }
+  panel.style.display = 'flex';
+  panel.style.opacity = '1';
+  panel.style.transform = 'translateX(0)';
   panel.classList.add('active');
   panel.setAttribute('aria-hidden', 'false');
 
@@ -543,28 +767,71 @@ function showGenericAnalysis(role) {
 // Add AI message to chat
 function addAiMessage(message, isUser = false) {
   const container = document.getElementById('aiChatMessages');
-  const messageDiv = document.createElement('div');
-  messageDiv.className = `ai-message ${isUser ? 'user' : 'ai'}`;
-  
-  const icon = document.createElement('div');
-  icon.className = 'ai-message-icon';
-  icon.textContent = isUser ? '👤' : '🤖';
+  if (!container) return;
 
-  const bubble = document.createElement('div');
-  bubble.className = 'ai-message-bubble';
-  
-  // Parse markdown-like formatting
-  const formattedMessage = message
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\n/g, '<br/>');
-  
-  bubble.innerHTML = formattedMessage;
+  // For user messages, render immediately
+  if (isUser) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `ai-message user`;
+    const icon = document.createElement('div');
+    icon.className = 'ai-message-icon';
+    icon.textContent = '👤';
+    const bubble = document.createElement('div');
+    bubble.className = 'ai-message-bubble';
+    bubble.innerHTML = escapeHtml(message).replace(/\n/g, '<br/>');
+    messageDiv.appendChild(icon);
+    messageDiv.appendChild(bubble);
+    container.appendChild(messageDiv);
+    scroll_to_bottom();
+    return;
+  }
 
-  messageDiv.appendChild(icon);
-  messageDiv.appendChild(bubble);
-  container.appendChild(messageDiv);
-  
+  // For AI messages, show typing indicator then replace with real content
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'ai-message ai typing';
+  const tIcon = document.createElement('div');
+  tIcon.className = 'ai-message-icon';
+  tIcon.textContent = '🤖';
+  const tBubble = document.createElement('div');
+  tBubble.className = 'ai-message-bubble typing-bubble';
+  tBubble.innerHTML = '<span class="typing-dot">•</span><span class="typing-dot">•</span><span class="typing-dot">•</span>';
+  typingDiv.appendChild(tIcon);
+  typingDiv.appendChild(tBubble);
+  container.appendChild(typingDiv);
   scroll_to_bottom();
+
+  // Simulate typing delay proportional to message length
+  const plain = message.replace(/\*\*(.*?)\*\*/g, '$1');
+  const delay = Math.min(2200, Math.max(600, plain.length * 25));
+
+  setTimeout(() => {
+    // Replace typing with final message
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'ai-message ai';
+    const icon = document.createElement('div');
+    icon.className = 'ai-message-icon';
+    icon.textContent = '🤖';
+    const bubble = document.createElement('div');
+    bubble.className = 'ai-message-bubble';
+    const formattedMessage = escapeHtml(message)
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br/>');
+    bubble.innerHTML = formattedMessage;
+    messageDiv.appendChild(icon);
+    messageDiv.appendChild(bubble);
+    container.replaceChild(messageDiv, typingDiv);
+    scroll_to_bottom();
+  }, delay);
+}
+
+// Utility to escape HTML to avoid injection
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 // Scroll to bottom of chat
@@ -575,6 +842,40 @@ function scroll_to_bottom() {
       container.scrollTop = container.scrollHeight;
     }, 0);
   }
+}
+
+// Show a small popup in the hero section with a short summary. Click to dismiss.
+function showHeroPopup(text) {
+  try {
+    // Remove existing popup if any
+    const existing = document.getElementById('analysisHeroPopup');
+    if (existing) existing.remove();
+
+    const hero = document.getElementById('heroContent') || document.querySelector('.hero');
+    if (!hero) return;
+
+    const popup = document.createElement('div');
+    popup.id = 'analysisHeroPopup';
+    popup.className = 'analysis-hero-popup';
+    // keep plain text fallback (strip markdown)**
+    const plain = text.replace(/\*\*/g, '');
+    popup.innerHTML = `<div class="ahp-inner">${plain}</div><button class="ahp-close" aria-label="Close">✕</button>`;
+    // clicking anywhere closes
+    popup.addEventListener('click', closeHeroPopup);
+    hero.appendChild(popup);
+    // auto-hide after 12s
+    setTimeout(() => { try { popup.classList.add('visible'); } catch(_) {} }, 20);
+    setTimeout(() => { try { closeHeroPopup(); } catch(_) {} }, 12000);
+  } catch (e) { console.warn('showHeroPopup error', e); }
+}
+
+function closeHeroPopup() {
+  try {
+    const popup = document.getElementById('analysisHeroPopup');
+    if (!popup) return;
+    popup.classList.remove('visible');
+    setTimeout(() => { try { popup.remove(); } catch(_) {} }, 220);
+  } catch (e) { console.warn('closeHeroPopup error', e); }
 }
 
 // Helper: Calculate Eligibility Level
@@ -711,8 +1012,44 @@ function handleKeyboardEvents(e) {
 function closeAiAnalysis() {
   try {
     const panel = document.getElementById('aiAnalysisPanel');
+    if (!panel) return;
+
+    // Blur any focused element inside the panel and move focus to a visible control
+    try {
+      const active = document.activeElement;
+      if (active && panel.contains(active)) {
+        try { active.blur(); } catch (_) {}
+        const fallback = document.getElementById('hiringPerspectiveToggle') || document.getElementById('hiringPerspectiveToggle2');
+        if (fallback && typeof fallback.focus === 'function') {
+          try { fallback.focus(); } catch (_) {}
+        } else {
+          const body = document.body;
+          const prevTab = body.getAttribute('tabindex');
+          body.setAttribute('tabindex', '-1');
+          try { body.focus(); } catch (_) {}
+          if (prevTab === null) body.removeAttribute('tabindex');
+          else body.setAttribute('tabindex', prevTab);
+        }
+      }
+    } catch (fErr) {
+      console.warn('Focus move failed while closing AI panel:', fErr);
+    }
+
     panel.classList.remove('active');
-    panel.setAttribute('aria-hidden', 'true');
+    // Blur active element and delay hiding to avoid aria-hidden focus warnings
+    try { if (document.activeElement) document.activeElement.blur(); } catch (_) {}
+    setTimeout(() => {
+      try { panel.setAttribute('aria-hidden', 'true'); panel.setAttribute('inert', ''); } catch(e) { panel.setAttribute('aria-hidden', 'true'); }
+      // clear inline styles that keep the panel visible
+      panel.style.display = '';
+      panel.style.opacity = '';
+      panel.style.transform = '';
+    }, 50);
+    // clear gauge
+    const gauge = document.getElementById('fitGauge');
+    if (gauge) { gauge.innerHTML = ''; gauge.setAttribute('aria-hidden','true'); }
+    // clear any inline styles
+    panel.style.animation = '';
     const toggle1 = document.getElementById('hiringPerspectiveToggle');
     const toggle2 = document.getElementById('hiringPerspectiveToggle2');
     if (toggle1) toggle1.checked = false;
@@ -723,6 +1060,115 @@ function closeAiAnalysis() {
   } catch (error) {
     console.error('Error in closeAiAnalysis:', error);
   }
+}
+
+// Dev Terminal helpers
+function toggleDevTerminal() {
+  const panel = document.getElementById('devTerminalPanel');
+  if (!panel) return;
+  const isHidden = panel.getAttribute('aria-hidden') === 'true';
+  if (isHidden) {
+    panel.setAttribute('aria-hidden', 'false');
+    const input = document.getElementById('devTerminalInput');
+    if (input) input.focus();
+  } else {
+    closeDevTerminal();
+  }
+}
+
+function closeDevTerminal() {
+  const panel = document.getElementById('devTerminalPanel');
+  if (!panel) return;
+  panel.setAttribute('aria-hidden', 'true');
+}
+
+function runDevCommand() {
+  const input = document.getElementById('devTerminalInput');
+  const output = document.getElementById('devTerminalOutput');
+  if (!input || !output) return;
+  const cmd = input.value.trim();
+  if (!cmd) return;
+
+  // Add user input to output
+  const userLine = document.createElement('div');
+  userLine.textContent = `> ${cmd}`;
+  userLine.style.color = '#4B9965';
+  output.appendChild(userLine);
+  
+  try {
+    // Simple JS eval (demo only)
+    const result = eval(cmd);
+    const resLine = document.createElement('div');
+    resLine.textContent = String(result);
+    resLine.style.color = '#E2E8F0';
+    output.appendChild(resLine);
+  } catch (e) {
+    const errLine = document.createElement('div');
+    errLine.textContent = `Error: ${e.message}`;
+    errLine.style.color = '#EF4444';
+    output.appendChild(errLine);
+  }
+  
+  setTimeout(() => { output.scrollTop = output.scrollHeight; }, 0);
+  input.value = '';
+}
+
+// Dev Terminal helpers
+function handleDevTerminalKeyDown(e) {
+  if (e.key === 'Enter' && e.ctrlKey) {
+    e.preventDefault();
+    runDevCommand();
+  }
+}
+
+function toggleDevTerminal() {
+  const panel = document.getElementById('devTerminalPanel');
+  if (!panel) return;
+  const isHidden = panel.getAttribute('aria-hidden') === 'true';
+  if (isHidden) {
+    panel.setAttribute('aria-hidden', 'false');
+    const input = document.getElementById('devTerminalInput');
+    if (input) input.focus();
+  } else {
+    closeDevTerminal();
+  }
+}
+
+function closeDevTerminal() {
+  const panel = document.getElementById('devTerminalPanel');
+  if (!panel) return;
+  panel.setAttribute('aria-hidden', 'true');
+}
+
+function runDevCommand() {
+  const input = document.getElementById('devTerminalInput');
+  const output = document.getElementById('devTerminalOutput');
+  if (!input || !output) return;
+  const cmd = input.value.trim();
+  if (!cmd) return;
+
+  // Add user input to output
+  const userLine = document.createElement('div');
+  userLine.textContent = `> ${cmd}`;
+  userLine.style.color = '#4B9965';
+  output.appendChild(userLine);
+  
+  try {
+    // Simple JS eval (demo only)
+    const result = eval(cmd);
+    const resLine = document.createElement('div');
+    resLine.textContent = String(result);
+    resLine.style.color = '#E2E8F0';
+    output.appendChild(resLine);
+  } catch (e) {
+    const errLine = document.createElement('div');
+    errLine.textContent = `Error: ${e.message}`;
+    errLine.style.color = '#EF4444';
+    output.appendChild(errLine);
+  }
+  
+  setTimeout(() => { output.scrollTop = output.scrollHeight; }, 0);
+  input.value = '';
 }
 
 // Keyboard support - Escape to close

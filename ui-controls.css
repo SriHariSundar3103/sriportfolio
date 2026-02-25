@@ -1413,6 +1413,32 @@ button {
     transform: translateX(0);
 }
 
+/* Panel slide-in animation */
+.ai-analysis-panel.active {
+    animation: panelSlideIn 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes panelSlideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Fit gauge (circular) */
+.fit-gauge {
+    width: 72px;
+    height: 72px;
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.fit-gauge svg { width: 72px; height: 72px; }
+.fit-gauge .gauge-bg { stroke: rgba(255,255,255,0.06); stroke-width: 8; fill: none; }
+.fit-gauge .gauge-fg { stroke: #3B82F6; stroke-width: 8; stroke-linecap: round; fill: none; transform: rotate(-90deg); transform-origin: 36px 36px; }
+.fit-gauge .gauge-label { position: absolute; font-size: 12px; color: #e2e8f0; text-align: center; margin-top: 4px; }
+.fit-gauge .gauge-percent { font-weight: 700; font-size: 14px; display:block; }
+
 .ai-analysis-header {
     display: flex;
     justify-content: space-between;
@@ -1607,3 +1633,71 @@ button {
         width: 100%;
     }
 }
+
+/* Typing indicator styles */
+.typing-bubble {
+    opacity: 0.9;
+    background: rgba(59,130,246,0.06);
+    border: 1px dashed rgba(59,130,246,0.12);
+}
+.typing-dot {
+    display: inline-block;
+    margin: 0 2px;
+    font-size: 1.4em;
+    color: rgba(59,130,246,0.9);
+    opacity: 0.85;
+    animation: typingPulse 1s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes typingPulse {
+    0% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(-3px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0.4; }
+}
+
+/* Debug overlay for development */
+#hpDebugOverlay {
+    position: fixed;
+    left: 12px;
+    bottom: 12px;
+    width: 320px;
+    max-height: 260px;
+    background: rgba(10,14,30,0.95);
+    color: #e2e8f0;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    z-index: 99999;
+    font-size: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    overflow: hidden;
+}
+#hpDebugOverlay .hp-debug-header { display:flex; justify-content:space-between; align-items:center; padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.04); font-weight:600; }
+#hpDebugOverlay .hp-debug-lines { padding:8px 10px; overflow:auto; max-height:220px; }
+.hp-debug-line { padding:2px 0; opacity:0.9; }
+#hpDebugOverlay button { background:transparent; border:1px solid rgba(255,255,255,0.06); color:#cbd5e1; padding:4px 8px; border-radius:6px; cursor:pointer; }
+#hpDebugOverlay button:hover { background: rgba(255,255,255,0.02); }
+
+/* Hero analysis popup */
+.analysis-hero-popup {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    max-width: 380px;
+    background: linear-gradient(180deg, rgba(17,24,39,0.98), rgba(10,14,30,0.98));
+    color: #e2e8f0;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 14px 16px;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+    z-index: 99998;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.22s ease;
+    cursor: pointer;
+}
+.analysis-hero-popup.visible { opacity: 1; transform: translateY(0); }
+.analysis-hero-popup .ahp-inner { font-size: 0.95em; line-height: 1.3; }
+.analysis-hero-popup .ahp-close { position: absolute; top: 8px; right: 8px; background: transparent; border: none; color: #cbd5e1; font-size: 0.9em; cursor: pointer; }
+.analysis-hero-popup .ahp-close:hover { color: #fff; }
